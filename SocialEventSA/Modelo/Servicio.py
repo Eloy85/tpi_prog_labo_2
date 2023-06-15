@@ -5,27 +5,27 @@ class Servicio:
         self._disponibilidad = disponibilidad
         self._precio = precio
     
-    def get_tipoServicio(self):
+    def getTipoServicio(self):
         return self._tipoServicio
     
-    def set_tipoServicio(self, tipoServicio):
+    def setTipoServicio(self, tipoServicio):
         self._tipoServicio = tipoServicio
     
-    def get_descripcion(self):
+    def getDescripcion(self):
         return self._descripcion
     
-    def set_descripcion(self, descripcion):
+    def setDescripcion(self, descripcion):
         self._descripcion = descripcion
     
-    def get_disponibilidad(self):
+    def getDisponibilidad(self):
         return self._disponibilidad
     
-    def set_disponibilidad(self, disponibilidad):
+    def setDisponibilidad(self, disponibilidad):
         self._disponibilidad = disponibilidad
     
-    def get_precio(self):
+    def getPrecio(self):
         return self._precio
     
-    def set_precio(self, precio):
+    def setPrecio(self, precio):
         self._precio = precio
     

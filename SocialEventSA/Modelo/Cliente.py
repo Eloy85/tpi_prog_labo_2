@@ -7,39 +7,42 @@ class Cliente:
         self._telefono = telefono
         self._email = email
     
-    def get_apellido(self):
+    def getApellido(self):
         return self._apellido
     
-    def set_apellido(self, apellido):
+    def setApellido(self, apellido):
         self._apellido = apellido
     
-    def get_nombre(self):
+    def getNombre(self):
         return self._nombre
     
-    def set_nombre(self, nombre):
+    def setNombre(self, nombre):
         self._nombre = nombre
     
-    def get_dni(self):
+    def getDni(self):
         return self._dni
     
-    def set_dni(self, dni):
+    def setDni(self, dni):
         self._dni = dni
     
-    def get_domicilio(self):
+    def getDomicilio(self):
         return self._domicilio
     
-    def set_domicilio(self, domicilio):
+    def setDomicilio(self, domicilio):
         self._domicilio = domicilio
     
-    def get_telefono(self):
+    def getTelefono(self):
         return self._telefono
     
-    def set_telefono(self, telefono):
+    def setTelefono(self, telefono):
         self._telefono = telefono
     
-    def get_email(self):
+    def getEmail(self):
         return self._email
     
-    def set_email(self, email):
+    def setEmail(self, email):
         self._email = email
+    
+    def __str__(self) -> str:
+        return self._apellido+","+self._nombre+","+self._dni+","+self._domicilio+","+self._telefono+","+self._email
     

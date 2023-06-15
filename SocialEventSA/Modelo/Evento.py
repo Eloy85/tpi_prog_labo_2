@@ -5,27 +5,27 @@ class Evento:
         self._fecha = fecha
         self._precioTotal = precioTotal
     
-    def get_tipoEvento(self):
+    def getTipoEvento(self):
         return self._tipoEvento
     
-    def set_tipoEvento(self, tipoEvento):
+    def setTipoEvento(self, tipoEvento):
         self._tipoEvento = tipoEvento
     
-    def get_lugar(self):
+    def getLugar(self):
         return self._lugar
     
-    def set_lugar(self, lugar):
+    def setLugar(self, lugar):
         self._lugar = lugar
     
-    def get_fecha(self):
+    def getFecha(self):
         return self._fecha
     
-    def set_fecha(self, fecha):
+    def setFecha(self, fecha):
         self._fecha = fecha
     
-    def get_precioTotal(self):
+    def getPrecioTotal(self):
         return self._precioTotal
     
-    def set_precioTotal(self, precioTotal):
+    def setPrecioTotal(self, precioTotal):
         self._precioTotal = precioTotal
     
