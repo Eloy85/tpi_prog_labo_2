@@ -15,4 +15,4 @@ class VistaCalendario:
         return int(input("Mes a realizar evento: "))
 
     def ingresar_dia(self):
-        return input("Dia a realizar evento: ")
+        return int(input("Dia a realizar evento: "))
