@@ -4,4 +4,9 @@ class VistaCalendario:
         conten=archivo.read()
         archivo.close()
         print(conten) 
-        
+    def ingresar_año(self):
+        return input("Año a realizar evento: ")
+    def ingresar_mes(self):
+        return input("Mes a realizar evento: ")
+    def ingresar_dia(self):
+        return input("Dia a realizar evento: ")
