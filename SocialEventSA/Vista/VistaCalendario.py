@@ -10,3 +10,9 @@ class VistaCalendario:
         return input("Mes a realizar evento: ")
     def ingresar_dia(self):
         return input("Dia a realizar evento: ")
+    def fecha_invalida(self):
+        print("Ingrese una fecha valida")
+    def reserva_realizada(self):
+        print("Su reserva se realizo con exito")
+    def reserva_no_disponible(self):
+        print("Fecha no disponible, porfavor seleccione una nueva")
