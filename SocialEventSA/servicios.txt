@@ -1,0 +1,6 @@
+DJ;Servicio de dj;1;50000
+Decoración;Servicio de decoracion a tu gusto;1:25000
+Cotillón;Servicio de cotillón adaptado a tus gustos;1;20000
+Maquina de humo;Maquina expendedora de humo;1;10000
+Maquillaje;Servicio de maquillaje toda la noche;1;10000
+Musica en vivo;Musica tocada por una banda en vivo;1;25000
