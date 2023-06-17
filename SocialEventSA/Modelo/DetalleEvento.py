@@ -34,7 +34,6 @@ class DetalleEvento:
         return self._servicios
 
 
-
     def obtenerTotal(self, totalservicios):
         total = int(self.GetIva()) + int(self.GetCostoAdministrativo()) + int(totalservicios)
         self.SetCostoTotal(total)
