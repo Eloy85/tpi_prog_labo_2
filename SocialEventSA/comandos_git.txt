@@ -1,0 +1,5 @@
+#Actualizar los cambios q otros realizaron: git pull
+#Para subir un cambio esto:
+    git add .
+    git commit -m "Cambio realizado"
+    git push -u origin develop
