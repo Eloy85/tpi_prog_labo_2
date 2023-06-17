@@ -4,6 +4,4 @@ from Vista.VistaCalendario import VistaCalendario
 class ControladorCalendario:
     def __init__(self):
         self.vista = VistaCalendario()
-        self.calendario = Calendario()
-
-    
+        self.calendario = Calendario()        
