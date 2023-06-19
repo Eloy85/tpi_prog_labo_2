@@ -25,12 +25,12 @@ class Fecha:
         self._anio = anio
 
     def __str__(self):
-        return "{}/{}/{}".format(self.dia, self.mes, self.anio)
+        return "{}/{}/{}".format(self._dia, self._mes, self._anio)
     
     def esBisiesto(self):
-        if self.anio % 4 == 0:
-            if self.anio % 100 == 0:
-                if self.anio % 400 == 0:
+        if self._anio % 4 == 0:
+            if self._anio % 100 == 0:
+                if self._anio % 400 == 0:
                     return True
                 else:
                     return False
@@ -40,6 +40,6 @@ class Fecha:
             return False
 
     def obtenerDiaSemana(self):
-        fecha = datetime.datetime(self.anio, self.mes, self.dia)
+        fecha = datetime(self._anio, self._mes, self._dia)
         diasSemana = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
         return diasSemana[fecha.weekday()]
