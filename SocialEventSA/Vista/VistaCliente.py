@@ -1,5 +1,6 @@
 class VistaCliente:
     def menuClientes(self):
+        print(f"{'MENU CLIENTES':-^31}")
         print("1- Registrar nuevo cliente")
         print("2- Consultar cliente")
         print("3- Modificar datos de cliente")

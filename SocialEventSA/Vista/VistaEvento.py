@@ -1,6 +1,6 @@
 class VistaEvento:
     def menuPrincipal(self):
-        print("***SISTEMA DE ADMINISTRACION DE EVENTOS***")
+        print(f"{'SISTEMA DE ADMINISTRACION DE EVENTOS':-^46}") # este tipo de format sirve para agregarle al costado caracteres
         print("1- Eventos")
         print("2- Clientes")
         print("3- Salir")
