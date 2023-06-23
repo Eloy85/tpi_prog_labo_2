@@ -1,6 +1,6 @@
 class VistaCliente:
     def menuClientes(self):
-        print(f"{'MENU CLIENTES':-^31}")
+        print(f"{'MENU CLIENTES':-^46}")
         print("1- Registrar nuevo cliente")
         print("2- Consultar cliente")
         print("3- Modificar datos de cliente")
@@ -17,7 +17,7 @@ class VistaCliente:
         return input("Ingrese el nombre: ")
     
     def dni(self):
-        return int(input("Ingrese el número de DNI: "))
+        return int(input("Ingrese el número de DNI del cliente: "))
     
     def domicilio(self):
         return input("Ingrese el domicilio: ")

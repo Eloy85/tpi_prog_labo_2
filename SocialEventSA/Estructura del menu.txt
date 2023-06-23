@@ -1,0 +1,59 @@
+        print("***SISTEMA DE ADMINISTRACION DE EVENTOS***")
+        print("1- Eventos")
+        print("2- Clientes")
+        print("3- Salir")
+	#opcion 1:
+        	print("1- Registrar nuevo evento")
+        	print("2- Consultar evento")
+        	print("3- Modificar evento")
+        	print("4- Cancelar evento")
+        	print("5- Volver al menú principal")
+		#opcion 1:
+			print("Ingrese el DNI del cliente: ")
+			# Si el cliente no está registrado:
+			print("El DNI ingresado no se encuentra registrado en la base de datos. ¿Desea registrar un nuevo cliente? S/N: ")
+			# Si elige SI, lo deriva al menú clientes para registrar uno nuevo, si no sale al menú principal
+
+			print("Ingrese la fecha deseada: ")
+
+			print("Seleccione el tipo de evento que desea realizar:")
+			print("1- Casamiento")
+			print("2- Cumpleaños")
+			print("3- Bautismo")
+			print("4- Aniversario")
+			print("5- Otro")
+
+			print("Seleccione los servicios que desea incluir en el evento:")
+			print("1- DJ;Servicio de dj;1;50000")
+			print("2- Decoración;Servicio de decoracion a tu gusto;1:25000")
+			print("3- Cotillón;Servicio de cotillón adaptado a tus gustos;1;20000")
+			print("4- Maquina de humo;Maquina expendedora de humo;1;10000")
+			print("5- Maquillaje;Servicio de maquillaje toda la noche;1;10000")
+			print("6- Musica en vivo;Musica tocada por una banda en vivo;1;25000")
+			print("7- Terminar selección de servicios")
+
+			print("El precio total del evento es de $...")
+			print("La seña a abonar para realizar la reserva es de $...")
+			print("¿Confirmar evento? S/N: ")
+
+		#opcion 2:
+			print("1- Consultar por fecha")
+			print("2- Consultar por cliente")
+			print("3- Consultar por tipo de evento")
+			print("4- Volver al menú principal")
+
+		#opcion 3:
+			print("Ingrese la fecha del evento: ")
+			# Si coincide con un evento registrado, muestra la información del evento y
+			print("Seleccione qué desea modificar:")
+			print("1- Fecha")
+			print("2- Tipo de evento")
+			print("3- Servicios incluidos")
+			print("4- Volver al menú principal")
+
+		#opcion 4:
+			print("Ingrese la fecha del evento: ")
+			# Si coincide con un evento registrado, muestra la información del evento y
+			print("¿Desea cancelar el evento? S/N: ")
+			# Si selecciona SI:
+			print("El monto a devolver de la seña es de $...")

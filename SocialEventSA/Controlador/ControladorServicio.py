@@ -2,22 +2,24 @@ from Modelo.Servicio import Servicio
 from Vista.VistaServicio import VistaServicio
 
 class ControladorServicio:
-    def __init__(self,vista=VistaServicio(),servicio=Servicio(),servicios=[]):
-        self.vista=vista
-        self.servicio=servicio
-        self.servicios=servicios
-    def inicializar_servicios(self):
-        with open("servicios.txt", "r") as archivo:
+    def __init__(self, archivo):
+        self.archivo = archivo
+        self.vista = VistaServicio()
+        self.servicio = Servicio()
+        self.listaServicios = []
+    
+    def inicializarServicios(self):
+        with open(self.archivo, "r", encoding="utf-8") as archivo:
             lineas = archivo.readlines()
             for linea in lineas:
-                atributos = linea.strip().split(';')
-                servicio = Servicio(atributos[0], atributos[1], atributos[2], atributos[3])
-                self.servicios.append(servicio)
+                atributos = linea.strip().split(";")
+                self.servicio = Servicio(int(atributos[0]), atributos[1], atributos[2], bool(atributos[3]), float(atributos[4]))
+                self.listaServicios.append(self.servicio)
     
-def lectura_tipos_servicios(servicios):
-    tipos_servicios = []
-    with open(servicios.txt, 'r') as archivo:
-        for linea in archivo:
-            tipo_servicio = linea.strip()
-            tipos_servicios.append(tipo_servicio)
-    return tipos_servicios  
+    def elegirServicios(self):
+        for servicio in self.listaServicios:
+            if servicio.getDisponibilidad() == True:
+                self.vista.mostrarServicio(str(servicio.getCodigo())+" - "+servicio.getTipoServicio()+" - "+servicio.getDescripcion()+" - $"+str(servicio.getPrecio()))
+        opcionServicio = self.vista.elegirServicios()
+        return opcionServicio
+    
