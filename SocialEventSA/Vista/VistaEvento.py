@@ -4,7 +4,9 @@ class VistaEvento:
         print("1- Eventos")
         print("2- Clientes")
         print("3- Salir")
-        return int(input("Ingrese la opción deseada (1/2/3): "))
+        print("3- Costos y precios")
+        print("4- Salir")
+        return int(input("Ingrese la opción deseada (1/2/3/4): "))
 
     def menuEventos(self):
         print(f"°{'MENU EVENTOS':-^46}°")
