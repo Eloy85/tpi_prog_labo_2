@@ -1,10 +1,11 @@
 class VistaCliente:
     def menuClientes(self):
-        print(f"{'MENU CLIENTES':-^46}")
-        print("1- Registrar nuevo cliente")
-        print("2- Consultar cliente")
-        print("3- Modificar datos de cliente")
-        print("4- Volver al menú principal")
+        print(f"°{'MENU CLIENTES':-^46}°")
+        print(f"{'1- Registrar nuevo cliente.': >37}")
+        print(f"{'2- Consultar cliente.': >31}")
+        print(f"{'3- Modificar datos de cliente.': >40}")
+        print(f"{'4- Volver al menú principal.': >38}")
+        print(f"°{'-':-^46}°")
         return input("Ingrese la opción deseada (1/2/3/4): ")
     
     def archivoNoEncontrado(self):
