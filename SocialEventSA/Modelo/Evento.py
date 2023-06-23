@@ -1,10 +1,16 @@
 class Evento:
-    def __init__(self, cliente, tipoEvento, fecha, servicios, precioTotal):
+    def __init__(self, fecha, cliente, tipoEvento, servicios, precioTotal):
+        self._fecha = fecha
         self._cliente = cliente
         self._tipoEvento = tipoEvento
-        self._fecha = fecha
         self._servicios = servicios
         self._precioTotal = precioTotal
+    
+    def getFecha(self):
+        return self._fecha
+    
+    def setFecha(self, fecha):
+        self._fecha = fecha
     
     def getCliente(self):
         return self._cliente
@@ -17,12 +23,6 @@ class Evento:
     
     def setTipoEvento(self, tipoEvento):
         self._tipoEvento = tipoEvento
-    
-    def getFecha(self):
-        return self._fecha
-    
-    def setFecha(self, fecha):
-        self._fecha = fecha
     
     def getServicios(self):
         return self._servicios
@@ -37,8 +37,5 @@ class Evento:
         self._precioTotal = precioTotal
     
     def __str__(self) -> str:
-        return "Cliente: "+self._cliente+"\nTipo de evento: "+self._tipoEvento+"\nFecha: "+self._fecha+"\nPrecio total: $"+self._precioTotal
-    
-    def calcularSenia(self):
-        return self._precioTotal * 0.3
+        return str(self._fecha)+";"+str(self._cliente)+";"+str(self._tipoEvento)+";"+str(self._servicios)+";"+str(self._precioTotal)
     

@@ -44,5 +44,5 @@ class Cliente:
         self._email = email
     
     def __str__(self) -> str:
-        return self._apellido+","+self._nombre+","+self._dni+","+self._domicilio+","+self._telefono+","+self._email
+        return self._apellido+", "+self._nombre
     

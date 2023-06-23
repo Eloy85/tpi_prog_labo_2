@@ -1,41 +1,44 @@
 class DetalleEvento:
-    def __init__(self, fecha = "", servicios = [], iva = 0, costototal = 0, costoadministrativo = 0):
-        self._fecha = fecha
-        self._servicios = servicios
-        self._costoadministrativo = costoadministrativo
+    def __init__(self, costoServicios=0.0, iva=0.0, costoTotal=0.0, costoAdministrativo=0.0):
+        self._costoServicios = costoServicios
+        self._costoAdministrativo = costoAdministrativo
         self._iva = iva
-        self._costototal = costototal
+        self._costoTotal = costoTotal
+    
+    def setCostoServicios(self, costoServicios):
+        self._costoServicios = costoServicios
+    
+    def setCostoAdministrativo(self, costo):
+        self._costoAdministrativo = costo
 
-    def SetFecha(self, fecha):
-        self._fecha = fecha
-
-    def SetCostoAdministrativo(self, costo ):
-        self._costoadministrativo = costo
-
-    def SetIva(self, iva):
+    def setIva(self, iva):
         self._iva = iva
 
-    def SetCostoTotal(self, total):
-        self._costototal = total
+    def setCostoTotal(self, total):
+        self._costoTotal = total
+    
+    def getCostoServicios(self):
+        return self._costoServicios
 
-    def GetFecha(self):
-        return self._fecha
+    def getCostoAdministrativo(self):
+        return self._costoAdministrativo
 
-    def GetCostoAdministrativo(self):
-        return self._costoadministrativo
-
-    def GetIva(self):
+    def getIva(self):
         return self._iva
 
-    def GetCostoTotal(self):
-        return self._costototal
+    def getCostoTotal(self):
+        return self._costoTotal
+    
+    def calcularIva(self):
+        self.setIva((self._costoAdministrativo + self._costoServicios) * 0.21)
 
-    def GetServicios(self):
-        return self._servicios
+    def obtenerTotal(self):
+        iva = self.getIva()
+        costoAdministrativo = self.getCostoAdministrativo()
+        costoServicios = self.getCostoServicios()
+        total = iva + costoAdministrativo + costoServicios
+        self.setCostoTotal(total)
+        return total
 
-
-    def obtenerTotal(self, totalservicios):
-        total = int(self.GetIva()) + int(self.GetCostoAdministrativo()) + int(totalservicios)
-        self.SetCostoTotal(total)
-
-
+    def calcularSenia(self):
+        return self._costoTotal * 0.3

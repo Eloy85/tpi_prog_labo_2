@@ -1,0 +1,5 @@
+4/6/2023;Pérez, Juan;Cumpleaños;DJ, Máquina de humo, Maquillaje, Catering;100000.0
+12/7/2023;Rosales, Javier;Casamiento;DJ, Maquillaje, Máquina de humo, Cotillón, Catering, Catering;200000.0
+15/8/2023;Estévez, Gabriela;Cumpleaños;DJ, Cotillón, Catering;50000.0
+19/8/2023;Flores, Estela;Aniversario;Música en vivo, Cotillón, Catering;70000.0
+1/9/2023;Dalbes, Horacio;Bautismo;DJ, Catering;40000.0

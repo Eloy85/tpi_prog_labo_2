@@ -5,3 +5,11 @@ class VistaServicio:
     def elegirServicios(self):
         return int(input("Ingrese el número del servicio que desea agregar o ingrese 0 para terminar: "))
     
+    def seleccionarServicio(self):
+        return int(input("Ingrese el número del servicio al que desea modificar: "))
+    
+    def precioServicio(self):
+        return float(input("Ingrese el nuevo precio: "))
+    
+    def estadoServicio(self):
+        return int(input("Ingrese 1 para activar el servicio o 0 para desactivarlo: "))
