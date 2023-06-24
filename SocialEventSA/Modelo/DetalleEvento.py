@@ -1,9 +1,12 @@
 class DetalleEvento:
-    def __init__(self, costoServicios=0.0, iva=0.0, costoTotal=0.0, costoAdministrativo=0.0):
+    def __init__(self, costoServicios=0.0, iva=0.0, costoTotal=0.0, costoAdministrativo=0.0, precio_congelado=0.0):
         self._costoServicios = costoServicios
         self._costoAdministrativo = costoAdministrativo
         self._iva = iva
         self._costoTotal = costoTotal
+        self.precio_congelado = precio_congelado
+        
+
     
     def setCostoServicios(self, costoServicios):
         self._costoServicios = costoServicios
@@ -42,3 +45,14 @@ class DetalleEvento:
 
     def calcularSenia(self):
         return self._costoTotal * 0.3
+    
+    def agregar_pago(self, monto, fecha):
+        self.pagos.append((monto, fecha))
+
+    def obtener_pagos(self):
+        return self.pagos
+
+    def calcular_deuda(self):
+        pagado = sum([p[0] for p in self.pagos])
+        deuda = self.precio_congelado - pagado
+        return deuda
