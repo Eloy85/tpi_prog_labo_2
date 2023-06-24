@@ -43,22 +43,16 @@ class ControladorFecha:
             self.ingresarDia()
     
     def verificarDisponibilidad(self):
-        disponible = True
         fecha = datetime(self.fecha.getAnio(), self.fecha.getMes(), self.fecha.getDia())
         for element in self.fechasReservadas:
             if datetime(element.getAnio(), element.getMes(), element.getDia()) == fecha:
-                respuesta = self.vista.confirmarFechaProxima()
-                if respuesta:
-                    disponible = False
-                else:
-                    return False  # Agregar esta línea
+                return False
+        self.fechasReservadas.append(self.fecha)
+        self.vista.reservaExitosa()
+        return True
 
-        if disponible:
-            self.fechasReservadas.append(self.fecha)
-            self.vista.reservaExitosa()
-            return True
-
-    def encontrarFechaLibreCercana(self, fecha):
+    def encontrarFechaLibreCercana(self):
+        fecha = datetime(self.fecha.getAnio(), self.fecha.getMes(), self.fecha.getDia())
         delta = timedelta(days=1)
         fechaAnterior = fecha - delta
         fechaPosterior = fecha + delta
@@ -73,12 +67,15 @@ class ControladorFecha:
         self.vista.mostrarFecha(fecha)
         opcion = self.vista.confirmarFechaProxima()
         if opcion:
-            fecha = fecha.split("/")
-            nuevaFecha = Fecha(int(fecha[0]), int(fecha[1]), int(fecha[2]))
+            fechaSplit = fecha.split("/")
+            nuevaFecha = Fecha(int(fechaSplit[0]), int(fechaSplit[1]), int(fechaSplit[2]))
             self.fechasReservadas.append(nuevaFecha)
-            return True, self.vista.reservaExitosa()
+            self.fecha = nuevaFecha
+            self.vista.reservaExitosa()
+            return True
         else:
-            return False, self.vista.reservaCancelada()
+            self.vista.reservaCancelada()
+            return False
     
     def guardarArchivo(self):
         self.fechasReservadas.sort(key=lambda fecha: datetime(fecha.getAnio(), fecha.getMes(), fecha.getDia()))

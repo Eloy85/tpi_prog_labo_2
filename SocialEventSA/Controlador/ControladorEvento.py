@@ -51,11 +51,11 @@ class ControladorEvento:
             controladorFecha.guardarArchivo()
             return True
         else:
-            opcion = controladorFecha.vista.confirmarFechaProxima()
-            if not opcion:
-                return False
+            fechaNueva = controladorFecha.encontrarFechaLibreCercana()
+            if controladorFecha.ofrecerFecha(fechaNueva):
+                return True
             else:
-                return self.ingresarFecha()  # Llamar recursivamente al método ingresarFecha
+                return False
     
     def ingresarTipoEvento(self):
         tipoEvento = self.vista.tipoEvento()
