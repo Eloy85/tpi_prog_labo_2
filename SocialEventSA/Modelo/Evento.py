@@ -27,8 +27,8 @@ class Evento:
     def getServicios(self):
         return self._servicios
     
-    def setServicios(self, servicios):
-        self._servicios.append(servicios)
+    def setServicios(self, servicio):
+        self._servicios.append(servicio)
     
     def getPrecioTotal(self):
         return self._precioTotal

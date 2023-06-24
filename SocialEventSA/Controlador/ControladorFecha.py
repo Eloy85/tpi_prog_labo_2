@@ -44,16 +44,19 @@ class ControladorFecha:
     
     def verificarDisponibilidad(self):
         disponible = True
-        fecha = str(self.fecha.getDia())+"/"+str(self.fecha.getMes())+"/"+str(self.fecha.getAnio())
-        fecha = datetime.strptime(fecha, "%d/%m/%Y")  # Convertir la fecha solicitada a un objeto datetime
+        fecha = datetime(self.fecha.getAnio(), self.fecha.getMes(), self.fecha.getDia())
         for element in self.fechasReservadas:
-            if element.getDia() == self.fecha.getDia() and element.getMes() == self.fecha.getMes() and element.getAnio() == self.fecha.getAnio():
-                disponible = False
-                fechaLibre = self.encontrarFechaLibreCercana(fecha)
-                self.ofrecerFecha(fechaLibre)
-        if disponible == True:
+            if datetime(element.getAnio(), element.getMes(), element.getDia()) == fecha:
+                respuesta = self.vista.confirmarFechaProxima()
+                if respuesta:
+                    disponible = False
+                else:
+                    return False  # Agregar esta línea
+
+        if disponible:
             self.fechasReservadas.append(self.fecha)
             self.vista.reservaExitosa()
+            return True
 
     def encontrarFechaLibreCercana(self, fecha):
         delta = timedelta(days=1)
@@ -64,19 +67,18 @@ class ControladorFecha:
                 fechaAnterior -= delta
             if fechaPosterior in self.fechasReservadas:
                 fechaPosterior += delta
-        if fecha - fechaAnterior < fechaPosterior - fecha:
-            return fechaAnterior.strftime("%d/%m/%Y")
-        else:
-            return fechaPosterior.strftime("%d/%m/%Y")
+        return fechaAnterior.strftime("%d/%m/%Y") if fechaAnterior not in self.fechasReservadas else fechaPosterior.strftime("%d/%m/%Y")
     
     def ofrecerFecha(self, fecha):
         self.vista.mostrarFecha(fecha)
         opcion = self.vista.confirmarFechaProxima()
-        if opcion.upper() == "S":
+        if opcion:
             fecha = fecha.split("/")
             nuevaFecha = Fecha(int(fecha[0]), int(fecha[1]), int(fecha[2]))
             self.fechasReservadas.append(nuevaFecha)
-            return self.vista.reservaExitosa()
+            return True, self.vista.reservaExitosa()
+        else:
+            return False, self.vista.reservaCancelada()
     
     def guardarArchivo(self):
         self.fechasReservadas.sort(key=lambda fecha: datetime(fecha.getAnio(), fecha.getMes(), fecha.getDia()))

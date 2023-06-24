@@ -42,12 +42,20 @@ class ControladorEvento:
     
     def ingresarFecha(self):
         controladorFecha = ControladorFecha(self.archivoFecha)
+        controladorFecha.cargarArchivo()
         controladorFecha.ingresarDia()
         controladorFecha.ingresarMes()
         controladorFecha.ingresarAnio()
-        controladorFecha.verificarDisponibilidad()
-        self.evento.setFecha(controladorFecha.fecha)
-        controladorFecha.guardarArchivo()
+        if controladorFecha.verificarDisponibilidad():
+            self.evento.setFecha(controladorFecha.fecha)
+            controladorFecha.guardarArchivo()
+            return True
+        else:
+            opcion = controladorFecha.vista.confirmarFechaProxima()
+            if not opcion:
+                return False
+            else:
+                return self.ingresarFecha()  # Llamar recursivamente al método ingresarFecha
     
     def ingresarTipoEvento(self):
         tipoEvento = self.vista.tipoEvento()
@@ -129,6 +137,7 @@ class ControladorEvento:
                     if opcionEventos == 1:
                         self.ingresarCliente()
                         self.ingresarFecha()
-                        self.ingresarTipoEvento()
-                        self.elegirServicios()
-                        self.confirmarEvento()
+                        if self.ingresarFecha() == True:
+                            self.ingresarTipoEvento()
+                            self.elegirServicios()
+                            self.confirmarEvento()

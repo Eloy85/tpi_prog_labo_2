@@ -3,7 +3,6 @@ class VistaEvento:
         print(f"{'SISTEMA DE ADMINISTRACION DE EVENTOS':-^46}") # este tipo de format sirve para agregarle al costado caracteres
         print("1- Eventos")
         print("2- Clientes")
-        print("3- Salir")
         print("3- Costos y precios")
         print("4- Salir")
         return int(input("Ingrese la opción deseada (1/2/3/4): "))

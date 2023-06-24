@@ -15,7 +15,11 @@ class VistaFecha:
         print(f"La fecha seleccionada está ocupada. La más próxima disponible es el {fecha}.")
     
     def confirmarFechaProxima(self):
-        return input("¿Desea reservar esta fecha? S/N: ")
+        respuesta = input("¿Desea reservar esta fecha? S/N: ")
+        return respuesta.upper() == "S"
     
     def reservaExitosa(self):
         print("Reserva exitosa.")
+    
+    def reservaCancelada(self):
+        print("Reserva cancelada.")
