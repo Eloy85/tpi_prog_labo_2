@@ -1,10 +1,14 @@
+import os
+import time
+
 class VistaEvento:
     def menuPrincipal(self):
-        print(f"{'SISTEMA DE ADMINISTRACION DE EVENTOS':-^46}") # este tipo de format sirve para agregarle al costado caracteres
-        print("1- Eventos")
-        print("2- Clientes")
-        print("3- Costos y precios")
-        print("4- Salir")
+        print(f"°{'SISTEMA DE ADMINISTRACION DE EVENTOS':-^46}°") # este tipo de format sirve para agregarle al costado caracteres
+        print(f"{'1- Eventos.': >26}")
+        print(f"{'2- Clientes.': >27}")
+        print(f"{'3- Costos/Precios.': >33}")
+        print(f"{'4- Salir.': >24}")
+        print(f"°{'-':-^46}°")
         return int(input("Ingrese la opción deseada (1/2/3/4): "))
 
     def menuEventos(self):
@@ -74,10 +78,9 @@ class VistaEvento:
     def noHayDevolucion(self):
         print("No corresponde devolver dinero al cliente ya que la cancelación no se realizó con 15 días de anticipación.")
 
-    def tiempo_espera():
-        time.sleep(1)
+    def tiempo_espera(self):
         os.system("cls")
-        for i in range(3):
+        for i in range(1):
             print("Cargando.")
             time.sleep(0.5)
             os.system("cls")
@@ -87,3 +90,7 @@ class VistaEvento:
             print("Cargando...")
             time.sleep(0.5)
             os.system("cls")
+
+    def limpiar_pantalla(self):
+        time.sleep(1.5)
+        os.system("cls")

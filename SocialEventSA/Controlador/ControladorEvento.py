@@ -197,6 +197,7 @@ class ControladorEvento:
         opcionEventos = 0
         opcionClientes = 0
         while opcion != 4:
+            self.vista.tiempo_espera()
             opcion = self.vista.menuPrincipal()
             while opcion < 1 or opcion > 4:
                 opcion = self.vista.menuPrincipal()
@@ -217,6 +218,7 @@ class ControladorEvento:
                     elif opcionEventos == 3:
                         self.cancelarEvento()
             elif opcion == 2:
+                self.vista.tiempo_espera()
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
                 while opcionClientes != 4:
@@ -224,6 +226,8 @@ class ControladorEvento:
                     while opcionClientes < 1 or opcionClientes > 4:
                         opcionClientes = controladorCliente.vista.menuClientes()
                     if opcionClientes == 1:
+                        self.vista.tiempo_espera()
                         controladorCliente.registrarCliente()
                     elif opcionClientes == 2:
+                        self.vista.tiempo_espera()
                         controladorCliente.consultarCliente()

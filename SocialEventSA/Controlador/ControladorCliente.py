@@ -1,10 +1,12 @@
 from Modelo.Cliente import Cliente
 from Vista.VistaCliente import VistaCliente
+from Vista.VistaEvento import VistaEvento
 
 class ControladorCliente:
     def __init__(self, archivoClientes):
         self.cliente = Cliente(apellido='', nombre='', dni=0, domicilio='', telefono=0, email='')
         self.vista = VistaCliente()
+        self.vistaEvento = VistaEvento()
         self.archivo = archivoClientes
         self.listaClientes = []
         self.opcion = 0
@@ -21,14 +23,22 @@ class ControladorCliente:
     
     def registrarCliente(self):
         nuevoCliente = Cliente(apellido='', nombre='', dni=0, domicilio='', telefono=0, email='')
+        self.vistaEvento.limpiar_pantalla()
         nuevoCliente.setApellido(self.vista.apellido())
+        self.vistaEvento.tiempo_espera()
         nuevoCliente.setNombre(self.vista.nombre())
+        self.vistaEvento.tiempo_espera()
         nuevoCliente.setDni(self.vista.dni())
+        self.vistaEvento.tiempo_espera()
         nuevoCliente.setDomicilio(self.vista.domicilio())
+        self.vistaEvento.tiempo_espera()
         nuevoCliente.setTelefono(self.vista.telefono())
+        self.vistaEvento.tiempo_espera()
         nuevoCliente.setEmail(self.vista.email())
+        self.vistaEvento.tiempo_espera()
         self.listaClientes.append(nuevoCliente)
         self.vista.registroExitoso()
+        self.vistaEvento.limpiar_pantalla()
     
     def consultarCliente(self):
         dniCliente = self.vista.dni()
@@ -38,6 +48,8 @@ class ControladorCliente:
                 self.cliente = cliente
                 return True
         self.vista.clienteNoEncontrado()
+        self.vistaEvento.limpiar_pantalla()
+        self.vistaEvento.tiempo_espera()
         return False
 
     def guardarArchivo(self):
