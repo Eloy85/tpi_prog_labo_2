@@ -1,10 +1,12 @@
 from Modelo.DetalleEvento import DetalleEvento
+from Modelo.Evento import Evento
 from Vista.VistaDetalleEvento import VistaDetalleEvento
 
 class ControladorDetalleEvento:
     def __init__(self, modelo = DetalleEvento(), vista = VistaDetalleEvento()):
         self.detalleEvento = modelo
-        self.vista = vista 
+        self.vista = vista
+        self.evento = Evento() 
 
     def calcularTotalServicios(self):
         lista = DetalleEvento.GetServicios()
