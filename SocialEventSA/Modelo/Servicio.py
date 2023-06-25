@@ -1,11 +1,12 @@
 class Servicio:
-    def __init__(self, codigo=0, tipoServicio='', descripcion='', disponibilidad=True, precio=0.0, fueElegido=False):
+    def __init__(self, codigo=0, tipoServicio='', descripcion='', disponibilidad=True, precio=0.0, fueElegido=False, cantidad=1):
         self._codigo = codigo
         self._tipoServicio = tipoServicio
         self._descripcion = descripcion
         self._disponibilidad = disponibilidad
         self._precio = precio
         self._fueElegido = fueElegido
+        self._cantidad = cantidad
     
     def getCodigo(self):
         return self._codigo
@@ -42,6 +43,12 @@ class Servicio:
     
     def setFueElegido(self, fueElegido):
         self._fueElegido = fueElegido
+    
+    def getCantidad(self):
+        return self._cantidad
+    
+    def setCantidad(self, cantidad):
+        self._cantidad = cantidad
     
     def __str__(self) -> str:
         return str(self._codigo)+";"+self._tipoServicio+";"+self._descripcion+";"+str(self._disponibilidad)+";"+str(self._precio)

@@ -13,3 +13,6 @@ class VistaServicio:
     
     def estadoServicio(self):
         return int(input("Ingrese 1 para activar el servicio o 0 para desactivarlo: "))
+    
+    def cantidadServicio(self):
+        return int(input("Ingrese la cantidad que desea contratar de este servicio: "))

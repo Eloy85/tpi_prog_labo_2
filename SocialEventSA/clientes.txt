@@ -1,1 +1,5 @@
 Molina,Eloy,31608593,25 de Mayo 1217,3534067237,eloyfmolina@gmail.com
+Pérez,Juan,12345678,Ayacucho 987,3534567890,perezjuancho@gmail.com
+Estévez,Gabriela,45678912,Guatemala 133,3535432109,gabi_estevez@hotmail.com
+Flores,Estela,22987654,Jujuy 3010,3534123456,estelaflores54@gmail.com
+Dalbes,Horacio,16789123,Colombia 382,3535444321,hdalbes@gmail.com

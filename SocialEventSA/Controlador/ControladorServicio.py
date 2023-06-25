@@ -13,7 +13,7 @@ class ControladorServicio:
             lineas = archivo.readlines()
             for linea in lineas:
                 atributos = linea.strip().split(";")
-                self.servicio = Servicio(int(atributos[0]), atributos[1], atributos[2], bool(atributos[3]), float(atributos[4]), False)
+                self.servicio = Servicio(int(atributos[0]), atributos[1], atributos[2], bool(atributos[3]), float(atributos[4]), False, 1)
                 self.listaServicios.append(self.servicio)
     
     def elegirServicios(self):

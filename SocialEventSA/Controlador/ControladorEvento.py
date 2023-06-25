@@ -33,11 +33,13 @@ class ControladorEvento:
         controladorCliente.cargarArchivo()
         if controladorCliente.consultarCliente():
             self.evento.setCliente(controladorCliente.cliente)
+            self.detalleEvento.setCliente(controladorCliente.cliente)
         else:
             registrarCliente = self.vista.noSeEncontroCliente()
             if registrarCliente.upper() == "S":
                 nuevoCliente = controladorCliente.registrarCliente()
                 self.evento.setCliente(nuevoCliente)
+                self.detalleEvento.setCliente(nuevoCliente)
                 controladorCliente.guardarArchivo()
     
     def ingresarFecha(self):
@@ -48,6 +50,7 @@ class ControladorEvento:
         controladorFecha.ingresarAnio()
         if controladorFecha.verificarDisponibilidad():
             self.evento.setFecha(controladorFecha.fecha)
+            self.detalleEvento.setFecha(controladorFecha.fecha)
             controladorFecha.guardarArchivo()
             return True
         else:
@@ -63,14 +66,19 @@ class ControladorEvento:
         match tipoEvento:
             case 1:
                 self.evento.setTipoEvento("Casamiento")
+                self.detalleEvento.setTipoEvento("Casamiento")
             case 2:
                 self.evento.setTipoEvento("Cumpleaños")
+                self.detalleEvento.setTipoEvento("Cumpleaños")
             case 3:
                 self.evento.setTipoEvento("Bautismo")
+                self.detalleEvento.setTipoEvento("Bautismo")
             case 4: 
                 self.evento.setTipoEvento("Aniversario")
+                self.detalleEvento.setTipoEvento("Aniversario")
             case 5:
                 self.evento.setTipoEvento("Otro")
+                self.detalleEvento.setTipoEvento("Otro")
     
     def elegirServicios(self):
         controladorServicio = ControladorServicio(self.archivoServicios)
@@ -83,11 +91,13 @@ class ControladorEvento:
             self.vista.mostrar(f"Precio total de los servicios seleccionados: ${precioServicios}")
             opcion = controladorServicio.elegirServicios()
             for servicio in controladorServicio.listaServicios:
-                if opcion == servicio.getCodigo():
+                if opcion == servicio.getCodigo() and servicio.getFueElegido() == False:
+                    if servicio.getCodigo() == 7:
+                        servicio.setCantidad(controladorServicio.vista.cantidadServicio())
                     self.evento.setServicios(servicio)
-                    precioServicios += servicio.getPrecio()
-                    if servicio.getCodigo() != 7:
-                        servicio.setFueElegido(True)
+                    self.detalleEvento.setServicios(f"{servicio.getTipoServicio()} - ${servicio.getPrecio()} - Cantidad", servicio.getCantidad())
+                    precioServicios += (servicio.getPrecio() * servicio.getCantidad())
+                    servicio.setFueElegido(True)
         self.detalleEvento.setCostoServicios(precioServicios)
     
     def confirmarEvento(self):
@@ -97,7 +107,7 @@ class ControladorEvento:
         self.vista.mostrar(f"Fecha: {self.evento.getFecha()}")
         self.vista.mostrar("Servicios seleccionados:")
         for servicio in self.evento.getServicios():
-            self.vista.mostrar(f"{servicio.getTipoServicio()} - ${servicio.getPrecio()}")
+            self.vista.mostrar(f"{servicio.getTipoServicio()} - ${servicio.getPrecio()} x {servicio.getCantidad()}")
         self.vista.mostrar("--------------------------")
         self.vista.mostrar("Conceptos a abonar:")
         self.vista.mostrar(f"Costo administrativo: ${self.detalleEvento.getCostoAdministrativo()}")
@@ -105,12 +115,18 @@ class ControladorEvento:
         self.vista.mostrar(f"IVA: ${self.detalleEvento.getIva()}")
         self.vista.mostrar(f"TOTAL: ${self.detalleEvento.obtenerTotal()}")
         self.vista.mostrar("\n")
+        self.vista.mostrar(self.detalleEvento)
         self.vista.mostrar(f"Si los datos son correctos, el monto de la seña que se debe abonar en este acto es de ${self.detalleEvento.calcularSenia()}")
         opcion = self.vista.confirmarEvento()
         if opcion.upper() == "S":
+            self.listaEventos.append(self.evento)
+            self.guardarDetalleEvento()
             self.vista.eventoRegistrado()
-        self.controlador_detalle_evento.cargar_detalle_de_clientes(self.vista_cliente.nombre()) # comprobar si funciona
     
+    def guardarDetalleEvento(self):
+        with open(f"Archivos\\Eventos\\{str(self.detalleEvento.getFecha()).replace('/', '-')}-{str(self.detalleEvento.getCliente()).strip().split('_')}.txt", 'w+', encoding='utf-8') as archivo:
+            archivo.write(self.detalleEvento.__str__())
+
     def modificarCostoAdministrativo(self):
         opcion = self.vista.costoAdministrativo(self.detalleEvento.getCostoAdministrativo())
         if opcion.upper() == "S":
@@ -213,6 +229,7 @@ class ControladorEvento:
                             self.ingresarTipoEvento()
                             self.elegirServicios()
                             self.confirmarEvento()
+                            self.guardarArchivo()
                     elif opcionEventos == 2:
                         self.consultarEvento()
                     elif opcionEventos == 3:
