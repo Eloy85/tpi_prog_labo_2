@@ -244,3 +244,6 @@ class ControladorEvento:
                         opcionAdmin = self.vista.costoAdministrativo()
                         if opcionAdmin.upper() == "S":
                             self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
+            elif opcion == 4:
+                self.vista.cerrando_programa()
+                self.vista.limpiar_pantalla()
