@@ -12,22 +12,22 @@ class VistaCliente:
         print("No se encontró ningún archivo de clientes. Se creará uno nuevo.")
     
     def apellido(self):
-        return input("Ingrese el apellido: ")
+        return input("Ingrese el apellido del cliente: ")
     
     def nombre(self):
-        return input("Ingrese el nombre: ")
+        return input("Ingrese el nombre del cliente: ")
     
     def dni(self):
         return int(input("Ingrese el número de DNI del cliente: "))
     
     def domicilio(self):
-        return input("Ingrese el domicilio: ")
+        return input("Ingrese el domicilio del cliente: ")
     
     def telefono(self):
-        return int(input("Ingrese el teléfono: "))
+        return int(input("Ingrese el teléfono del cliente: "))
     
     def email(self):
-        return input("Ingrese el email: ")
+        return input("Ingrese el email del cliente: ")
     
     def datoInvalido(self):
         print("¡Error!: Dato ingresado no válido.")

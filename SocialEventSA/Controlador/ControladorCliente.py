@@ -39,6 +39,7 @@ class ControladorCliente:
         self.listaClientes.append(nuevoCliente)
         self.vista.registroExitoso()
         self.vistaEvento.limpiar_pantalla()
+        self.vistaEvento.tiempo_espera()
     
     def consultarCliente(self):
         dniCliente = self.vista.dni()
