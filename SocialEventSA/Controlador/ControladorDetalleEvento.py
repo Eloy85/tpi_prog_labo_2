@@ -3,8 +3,8 @@ from Vista.VistaDetalleEvento import VistaDetalleEvento
 
 class ControladorDetalleEvento:
     def __init__(self, modelo = DetalleEvento(), vista = VistaDetalleEvento()):
-        self.modelo = modelo
-        self.vista = vista
+        self.detalleEvento = modelo
+        self.vista = vista 
 
     def calcularTotalServicios(self):
         lista = DetalleEvento.GetServicios()
@@ -26,5 +26,5 @@ class ControladorDetalleEvento:
             archivo.write(f"Servicios seleccionados: ${self.detalleEvento.getCostoServicios()}")
             archivo.write(f"IVA: ${self.detalleEvento.getIva()}")
             archivo.write(f"TOTAL: ${self.detalleEvento.obtenerTotal()}")
-            archivo.write("\n")
+            archivo.write("\n") # comprobar si funciona
 
