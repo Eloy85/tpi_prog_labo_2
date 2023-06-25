@@ -4,6 +4,8 @@ from Vista.VistaEvento import VistaEvento
 from Controlador.ControladorCliente import ControladorCliente
 from Controlador.ControladorFecha import ControladorFecha
 from Controlador.ControladorServicio import ControladorServicio
+from Controlador.ControladorDetalleEvento import ControladorDetalleEvento
+from Vista.VistaCliente import VistaCliente
 from datetime import datetime
 
 class ControladorEvento:
@@ -15,6 +17,8 @@ class ControladorEvento:
         self.evento = Evento(fecha='', cliente='', tipoEvento='', servicios=[], precioTotal=0.0)
         self.vista = VistaEvento()
         self.detalleEvento = DetalleEvento()
+        self.controlador_detalle_evento = ControladorDetalleEvento()
+        self.vista_cliente = VistaCliente()
         self.listaEventos = []
     
     def cargarArchivo(self):
@@ -105,6 +109,7 @@ class ControladorEvento:
         opcion = self.vista.confirmarEvento()
         if opcion.upper() == "S":
             self.vista.eventoRegistrado()
+        self.controlador_detalle_evento.cargar_detalle_de_clientes(self.vista_cliente.nombre()) # comprobar si funciona
     
     def modificarCostoAdministrativo(self):
         opcion = self.vista.costoAdministrativo(self.detalleEvento.getCostoAdministrativo())
