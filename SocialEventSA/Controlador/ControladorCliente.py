@@ -55,29 +55,36 @@ class ControladorCliente:
         return False
     
     def modificarCliente(self):
-        dniCliente = self.vista.dni()
-        for cliente in self.listaClientes:
-            if int(cliente.getDni()) == dniCliente:
-                opcion = 0
-                while opcion != 7:
-                    opcion = self.vista.menuModificarCliente()
-                    while opcion < 1 or opcion > 7:
-                        opcion = self.vista.menuModificarCliente()
-                    if opcion == 1:
-                        cliente.setApellido(self.vista.apellido())
-                    elif opcion == 2:
-                        cliente.setNombre(self.vista.nombre())
-                    elif opcion == 3:
-                        cliente.setDni(self.vista.dni())
-                    elif opcion == 4:
-                        cliente.setDomicilio(self.vista.domicilio())
-                    elif opcion == 5:
-                        cliente.setTelefono(self.vista.telefono())
-                    elif opcion == 6:
-                        cliente.setEmail(self.vista.email())
-                    elif opcion == 7:
-                        self.guardarArchivo()
-                        self.vista.registroExitoso()
+        var1=1
+        while var1<2:
+            try:
+                dniCliente = self.vista.dni()
+                var1=3  
+            
+                for cliente in self.listaClientes:
+                    if int(cliente.getDni()) == dniCliente:
+                        opcion = 0
+                        while opcion != 7:
+                            opcion = self.vista.menuModificarCliente()
+                            while opcion < 1 or opcion > 7:
+                                opcion = self.vista.menuModificarCliente()
+                            if opcion == 1:
+                                cliente.setApellido(self.vista.apellido())
+                            elif opcion == 2:
+                                cliente.setNombre(self.vista.nombre())
+                            elif opcion == 3:
+                                cliente.setDni(self.vista.dni())
+                            elif opcion == 4:
+                                cliente.setDomicilio(self.vista.domicilio())
+                            elif opcion == 5:
+                                cliente.setTelefono(self.vista.telefono())
+                            elif opcion == 6:
+                                cliente.setEmail(self.vista.email())
+                            elif opcion == 7:
+                                self.guardarArchivo()
+                                self.vista.registroExitoso()
+            except ValueError:
+                self.vista.valorIncorrecto()
 
     def guardarArchivo(self):
         with open(self.archivo, "w", encoding="utf-8") as archivo:
