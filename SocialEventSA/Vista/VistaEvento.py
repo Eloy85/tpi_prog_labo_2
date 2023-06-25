@@ -56,7 +56,7 @@ class VistaEvento:
         return input("¿Desea modificarlo? S/N: ")
     
     def nuevoPrecio(self):
-        return input("Ingrese el nuevo precio: ")
+        return float(input("Ingrese el nuevo precio: "))
     
     def consultarEvento(self):
         print("1- Consultar por fecha")

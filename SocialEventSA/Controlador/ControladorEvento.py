@@ -228,6 +228,19 @@ class ControladorEvento:
                     if opcionClientes == 1:
                         self.vista.tiempo_espera()
                         controladorCliente.registrarCliente()
+                        controladorCliente.guardarArchivo()
                     elif opcionClientes == 2:
                         self.vista.tiempo_espera()
                         controladorCliente.consultarCliente()
+                    elif opcionClientes == 3:
+                        controladorCliente.modificarCliente()
+            elif opcion == 3:
+                opcionCostos = 0
+                while opcionCostos != 4:
+                    opcionCostos = self.vista.costosPrecios()
+                    while opcionCostos < 1 or opcionCostos > 4:
+                        opcionCostos = self.vista.costosPrecios()
+                    if opcionCostos == 1:
+                        opcionAdmin = self.vista.costoAdministrativo()
+                        if opcionAdmin.upper() == "S":
+                            self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
