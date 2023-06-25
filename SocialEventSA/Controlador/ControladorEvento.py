@@ -191,20 +191,6 @@ class ControladorEvento:
             self.vista.montoDevuelto(devolucion)
         else:
             self.vista.noHayDevolucion()
-
-    def tiempo_espera():
-        time.sleep(1)
-        os.system("cls")
-        for i in range(3):
-            print("Cargando.")
-            time.sleep(0.5)
-            os.system("cls")
-            print("Cargando..")
-            time.sleep(0.5)
-            os.system("cls")
-            print("Cargando...")
-            time.sleep(0.5)
-            os.system("cls")
     
     def ejecutar(self):
         opcion = 0

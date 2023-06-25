@@ -73,3 +73,17 @@ class VistaEvento:
     
     def noHayDevolucion(self):
         print("No corresponde devolver dinero al cliente ya que la cancelación no se realizó con 15 días de anticipación.")
+
+    def tiempo_espera():
+        time.sleep(1)
+        os.system("cls")
+        for i in range(3):
+            print("Cargando.")
+            time.sleep(0.5)
+            os.system("cls")
+            print("Cargando..")
+            time.sleep(0.5)
+            os.system("cls")
+            print("Cargando...")
+            time.sleep(0.5)
+            os.system("cls")
