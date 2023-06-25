@@ -36,7 +36,14 @@ class ControladorCliente:
         self.vistaEvento.tiempo_espera()
     
     def consultarCliente(self):
-        dniCliente = self.vista.dni()
+        var1=1
+        while var1<2:
+            try:
+                dniCliente = self.vista.dni()
+                var1=3  
+            except ValueError:
+                self.vista.valorIncorrecto()
+        
         for cliente in self.listaClientes:
             if int(cliente.getDni()) == dniCliente:
                 self.vista.mostrar(str(cliente.getApellido())+", "+str(cliente.getNombre())+", "+str(cliente.getDomicilio())+", "+str(cliente.getTelefono())+", "+str(cliente.getEmail()))

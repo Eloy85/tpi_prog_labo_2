@@ -16,3 +16,6 @@ class VistaServicio:
     
     def cantidadServicio(self):
         return int(input("Ingrese la cantidad que desea contratar de este servicio: "))
+    
+    def valorIncorrecto(self):
+        print("¡Error!: Valor ingresado incorrecto.")

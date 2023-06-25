@@ -113,3 +113,5 @@ class VistaEvento:
     def limpiar_pantalla(self):
         time.sleep(1.5)
         os.system("cls")
+    def valorIncorrecto(self):
+        print("¡Error!: Valor ingresado incorrecto.")
