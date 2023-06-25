@@ -31,11 +31,16 @@ class ControladorCliente:
         self.vista.registroExitoso()
     
     def consultarCliente(self):
-        encontrado = False
         dniCliente = self.vista.dni()
         for cliente in self.listaClientes:
-            if cliente.getDni() == dniCliente:
-                print(cliente)
-                encontrado = True
-        if encontrado == False:
-            self.vista.clienteNoEncontrado()
+            if int(cliente.getDni()) == dniCliente:
+                self.vista.mostrar(str(cliente.getApellido())+", "+str(cliente.getNombre())+", "+str(cliente.getDomicilio())+", "+str(cliente.getTelefono())+", "+str(cliente.getEmail()))
+                self.cliente = cliente
+                return True
+        self.vista.clienteNoEncontrado()
+        return False
+
+    def guardarArchivo(self):
+        with open(self.archivo, "w", encoding="utf-8") as archivo:
+            for cliente in self.listaClientes:
+                archivo.write(str(cliente.getApellido()) + "," + str(cliente.getNombre()) + "," + str(cliente.getDni()) + "," + str(cliente.getDomicilio()) + "," + str(cliente.getTelefono()) + "," + str(cliente.getEmail()) + "\n")

@@ -52,3 +52,10 @@ class VistaEvento:
     
     def nuevoPrecio(self):
         return input("Ingrese el nuevo precio: ")
+    
+    def consultarEvento(self):
+        print("1- Consultar por fecha")
+        print("2- Consultar por cliente")
+        print("3- Consultar por tipo de evento")
+        print("4- Volver al menú principal")
+        return int(input("Ingrese su opción (1/2/3/4): "))

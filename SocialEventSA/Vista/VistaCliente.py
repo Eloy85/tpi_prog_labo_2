@@ -6,7 +6,7 @@ class VistaCliente:
         print(f"{'3- Modificar datos de cliente.': >40}")
         print(f"{'4- Volver al menú principal.': >38}")
         print(f"°{'-':-^46}°")
-        return input("Ingrese la opción deseada (1/2/3/4): ")
+        return int(input("Ingrese la opción deseada (1/2/3/4): "))
     
     def archivoNoEncontrado(self):
         print("No se encontró ningún archivo de clientes. Se creará uno nuevo.")
@@ -37,3 +37,6 @@ class VistaCliente:
     
     def clienteNoEncontrado(self):
         print("No se encontró el cliente.")
+    
+    def mostrar(self, dato):
+        print(dato)

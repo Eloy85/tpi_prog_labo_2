@@ -15,7 +15,6 @@ class ControladorFecha:
                 linea = linea.strip().split("/")
                 fecha = Fecha(int(linea[0]), int(linea[1]), int(linea[2]))
                 self.fechasReservadas.append(fecha)
-                print(fecha)
     
     def ingresarDia(self):
         self.fecha.setDia(self.vista.ingresarDia())

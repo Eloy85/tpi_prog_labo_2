@@ -4,6 +4,7 @@ from Vista.VistaEvento import VistaEvento
 from Controlador.ControladorCliente import ControladorCliente
 from Controlador.ControladorFecha import ControladorFecha
 from Controlador.ControladorServicio import ControladorServicio
+from datetime import datetime
 
 class ControladorEvento:
     def __init__(self, archivoEventos, archivoClientes, archivoFecha, archivoServicios):
@@ -26,19 +27,14 @@ class ControladorEvento:
     def ingresarCliente(self):
         controladorCliente = ControladorCliente(self.archivoClientes)
         controladorCliente.cargarArchivo()
-        dniCliente = controladorCliente.vista.dni()
-        encontrado = False
-        for cliente in controladorCliente.listaClientes:
-            if dniCliente == cliente.getDni():
-                encontrado = True
-                print(cliente)
-                self.evento.setCliente(cliente)
-                self.detalleEvento.setCliente(cliente)
-        if encontrado == False:
+        if controladorCliente.consultarCliente():
+            self.evento.setCliente(controladorCliente.cliente)
+        else:
             registrarCliente = self.vista.noSeEncontroCliente()
             if registrarCliente.upper() == "S":
                 nuevoCliente = controladorCliente.registrarCliente()
                 self.evento.setCliente(nuevoCliente)
+                controladorCliente.guardarArchivo()
     
     def ingresarFecha(self):
         controladorFecha = ControladorFecha(self.archivoFecha)
@@ -53,6 +49,7 @@ class ControladorEvento:
         else:
             fechaNueva = controladorFecha.encontrarFechaLibreCercana()
             if controladorFecha.ofrecerFecha(fechaNueva):
+                controladorFecha.guardarArchivo()
                 return True
             else:
                 return False
@@ -120,10 +117,26 @@ class ControladorEvento:
                 servicios = [str(servicio.getTipoServicio()) for servicio in evento.getServicios()]
                 cadena = ";".join([str(evento.getFecha()), str(evento.getCliente()), str(evento.getTipoEvento())] + servicios + [str(evento.getPrecioTotal())])
                 archivo.write(cadena + "\n")
+
+    def consultarEvento(self):
+        opcion = 0
+        while opcion != 4:
+            opcion = self.vista.consultarEvento()
+            if opcion == 1:
+                controladorFecha = ControladorFecha(self.archivoFecha)
+                controladorFecha.ingresarDia()
+                controladorFecha.ingresarMes()
+                controladorFecha.ingresarAnio()
+                fecha = datetime(controladorFecha.fecha.getAnio(), controladorFecha.fecha.getMes(), controladorFecha.fecha.getDia())
+                fecha = fecha.strftime("%#d/%#m/%Y")
+                for element in self.listaEventos:
+                    if element.getFecha() == fecha:
+                        self.vista.mostrar(element)
     
     def ejecutar(self):
         opcion = 0
         opcionEventos = 0
+        opcionClientes = 0
         while opcion != 4:
             opcion = self.vista.menuPrincipal()
             while opcion < 1 or opcion > 4:
@@ -136,8 +149,20 @@ class ControladorEvento:
                         opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
                         self.ingresarCliente()
-                        self.ingresarFecha()
                         if self.ingresarFecha() == True:
                             self.ingresarTipoEvento()
                             self.elegirServicios()
                             self.confirmarEvento()
+                    elif opcionEventos == 2:
+                        self.consultarEvento()
+            elif opcion == 2:
+                controladorCliente = ControladorCliente(self.archivoClientes)
+                controladorCliente.cargarArchivo()
+                while opcionClientes != 4:
+                    opcionClientes = controladorCliente.vista.menuClientes()
+                    while opcionClientes < 1 or opcionClientes > 4:
+                        opcionClientes = controladorCliente.vista.menuClientes()
+                    if opcionClientes == 1:
+                        controladorCliente.registrarCliente()
+                    elif opcionClientes == 2:
+                        controladorCliente.consultarCliente()
