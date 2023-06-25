@@ -3,12 +3,14 @@ import time
 
 class VistaEvento:
     def menuPrincipal(self):
-        print(f"°{'SISTEMA DE ADMINISTRACION DE EVENTOS':-^46}°") # este tipo de format sirve para agregarle al costado caracteres
-        print(f"{'1- Eventos.': >26}")
-        print(f"{'2- Clientes.': >27}")
-        print(f"{'3- Costos/Precios.': >33}")
-        print(f"{'4- Salir.': >24}")
-        print(f"°{'-':-^46}°")
+        print(f".{'-':-^46}.")
+        print(f"|{'SISTEMA DE ADMINISTRACION DE EVENTOS': ^46}|") # este tipo de format sirve para agregarle al costado caracteres
+        print(f"|{'-':-^46}|")
+        print(f"|{'1- Eventos.': ^41}     |")
+        print(f"|{'2- Clientes.': ^42}    |")
+        print(f"|{'3- Costos/Precios.': >33}             |")
+        print(f"|{'4- Salir.': ^39}       |")
+        print(f"|{'_':_^46}|")
         return int(input("Ingrese la opción deseada (1/2/3/4): "))
 
     def menuEventos(self):
