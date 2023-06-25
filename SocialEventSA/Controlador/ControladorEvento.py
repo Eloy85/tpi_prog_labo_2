@@ -6,7 +6,7 @@ from Controlador.ControladorFecha import ControladorFecha
 from Controlador.ControladorServicio import ControladorServicio
 from Controlador.ControladorDetalleEvento import ControladorDetalleEvento
 from Vista.VistaCliente import VistaCliente
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class ControladorEvento:
     def __init__(self, archivoEventos, archivoClientes, archivoFecha, archivoServicios):
@@ -22,7 +22,7 @@ class ControladorEvento:
         self.listaEventos = []
     
     def cargarArchivo(self):
-        with open(self.archivoEventos, "r") as archivo:
+        with open(self.archivoEventos, "r", encoding="utf-8") as archivo:
             for linea in archivo.readlines():
                 linea = linea.strip().split(";")
                 evento = Evento(linea[0], linea[1], linea[2], linea[3], linea[4])
@@ -119,8 +119,7 @@ class ControladorEvento:
     def guardarArchivo(self):
         with open(self.archivoEventos, "w", encoding="utf-8") as archivo:
             for evento in self.listaEventos:
-                servicios = [str(servicio.getTipoServicio()) for servicio in evento.getServicios()]
-                cadena = ";".join([str(evento.getFecha()), str(evento.getCliente()), str(evento.getTipoEvento())] + servicios + [str(evento.getPrecioTotal())])
+                cadena = ";".join([str(evento.getFecha()), str(evento.getCliente()), str(evento.getTipoEvento()), str(evento.getServicios()), str(evento.getPrecioTotal())])
                 archivo.write(cadena + "\n")
 
     def consultarEvento(self):
@@ -137,6 +136,61 @@ class ControladorEvento:
                 for element in self.listaEventos:
                     if element.getFecha() == fecha:
                         self.vista.mostrar(element)
+            elif opcion == 2:
+                clienteBuscado = ''
+                encontrado = False
+                controladorCliente = ControladorCliente(self.archivoClientes)
+                controladorCliente.cargarArchivo()
+                dni = controladorCliente.vista.dni()
+                for cliente in controladorCliente.listaClientes:
+                    if int(cliente.getDni()) == dni:
+                        clienteBuscado = f"{cliente.getApellido()}, {cliente.getNombre()}"
+                        encontrado = True
+                for element in self.listaEventos:
+                    if element.getCliente() == clienteBuscado:
+                        self.vista.mostrar(element)
+                if encontrado == False:
+                    controladorCliente.vista.clienteNoEncontrado()
+            elif opcion == 3:
+                encontrado = False
+                self.ingresarTipoEvento()
+                for element in self.listaEventos:
+                    if element.getTipoEvento() == self.evento.getTipoEvento():
+                        self.vista.mostrar(element)
+                        encontrado = True
+                if encontrado == False:
+                    self.vista.eventoNoEncontrado()
+    
+    def cancelarEvento(self):
+        controladorFecha = ControladorFecha(self.archivoFecha)
+        controladorFecha.ingresarDia()
+        controladorFecha.ingresarMes()
+        controladorFecha.ingresarAnio()
+        fecha = datetime(controladorFecha.fecha.getAnio(), controladorFecha.fecha.getMes(), controladorFecha.fecha.getDia())
+        fecha_str = fecha.strftime("%#d/%#m/%Y")
+        for element in self.listaEventos:
+            if element.getFecha() == fecha_str:
+                self.vista.mostrar(element)
+                respuesta = self.vista.cancelarEvento()
+                if respuesta.upper() == "S":
+                    self.calcularReintegro(fecha, float(element.getPrecioTotal()))
+                    self.listaEventos.remove(element)
+                    self.guardarArchivo()
+                    controladorFecha.cargarArchivo()
+                    for linea in controladorFecha.fechasReservadas:
+                        if linea.getDia() == controladorFecha.fecha.getDia() and linea.getMes() == controladorFecha.fecha.getMes() and linea.getAnio() == controladorFecha.fecha.getAnio():
+                            controladorFecha.fechasReservadas.remove(linea)
+                            controladorFecha.guardarArchivo()
+                    self.vista.eventoCancelado()
+    
+    def calcularReintegro(self, fecha, monto):
+        now = datetime.now()
+        delta = timedelta(days=15)
+        if fecha - delta > now:
+            devolucion = (monto * 0.3) * 0.2
+            self.vista.montoDevuelto(devolucion)
+        else:
+            self.vista.noHayDevolucion()
     
     def ejecutar(self):
         opcion = 0
@@ -148,9 +202,9 @@ class ControladorEvento:
                 opcion = self.vista.menuPrincipal()
             if opcion == 1:
                 self.cargarArchivo()
-                while opcionEventos != 5:
+                while opcionEventos != 4:
                     opcionEventos = self.vista.menuEventos()
-                    while opcionEventos < 1 or opcionEventos > 5:
+                    while opcionEventos < 1 or opcionEventos > 4:
                         opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
                         self.ingresarCliente()
@@ -160,6 +214,8 @@ class ControladorEvento:
                             self.confirmarEvento()
                     elif opcionEventos == 2:
                         self.consultarEvento()
+                    elif opcionEventos == 3:
+                        self.cancelarEvento()
             elif opcion == 2:
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()

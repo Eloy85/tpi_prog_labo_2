@@ -6,7 +6,7 @@ class ControladorDetalleEvento:
     def __init__(self, modelo = DetalleEvento(), vista = VistaDetalleEvento()):
         self.detalleEvento = modelo
         self.vista = vista
-        self.evento = Evento() 
+        self.evento = Evento(fecha='', cliente='', tipoEvento='', servicios='', precioTotal=0.0) 
 
     def calcularTotalServicios(self):
         lista = DetalleEvento.GetServicios()

@@ -11,11 +11,10 @@ class VistaEvento:
         print(f"°{'MENU EVENTOS':-^46}°")
         print(f"{'1- Registrar nuevo evento.': >35}")
         print(f"{'2- Consultar evento.': >29}")
-        print(f"{'3- Modificar evento.': >29}")
-        print(f"{'4- Cancelar evento.': >28}")
-        print(f"{'5- Volver al menú principal.': >37}")
+        print(f"{'3- Cancelar evento.': >28}")
+        print(f"{'4- Volver al menú principal.': >37}")
         print(f"°{'-':-^46}°")
-        return int(input("Ingrese la opción deseada (1/2/3/4/5): "))
+        return int(input("Ingrese la opción deseada (1/2/3/4): "))
     
     def noSeEncontroCliente(self):
         return input("No se encontró el cliente ingresado. ¿Desea registrarlo? S/N: ")
@@ -59,3 +58,18 @@ class VistaEvento:
         print("3- Consultar por tipo de evento")
         print("4- Volver al menú principal")
         return int(input("Ingrese su opción (1/2/3/4): "))
+    
+    def eventoNoEncontrado(self):
+        print("No se encontraron eventos de este tipo.")
+    
+    def cancelarEvento(self):
+        return input("¿Desea cancelar el evento? S/N: ")
+    
+    def eventoCancelado(self):
+        print("¡El evento se canceló exitosamente!")
+    
+    def montoDevuelto(self, monto):
+        print(f"El monto a devolver al cliente es ${monto}")
+    
+    def noHayDevolucion(self):
+        print("No corresponde devolver dinero al cliente ya que la cancelación no se realizó con 15 días de anticipación.")
