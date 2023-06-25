@@ -231,3 +231,8 @@ class ControladorEvento:
                     elif opcionClientes == 2:
                         self.vista.tiempo_espera()
                         controladorCliente.consultarCliente()
+            elif opcion == 3:
+                ...
+            elif opcion == 4:
+                self.vista.cerrando_programa()
+                self.vista.limpiar_pantalla()
