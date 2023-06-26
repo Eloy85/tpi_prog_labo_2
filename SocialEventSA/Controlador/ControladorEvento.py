@@ -154,7 +154,6 @@ class ControladorEvento:
                         archivo = element.getNombreArchivo()
                         with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
                             self.vista.mostrar(file.read())
-                        self.vista.mostrar(element)
             elif opcion == 2:
                 clienteBuscado = ''
                 encontrado = False
@@ -170,7 +169,6 @@ class ControladorEvento:
                         archivo = element.getNombreArchivo()
                         with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
                             self.vista.mostrar(file.read())
-                        self.vista.mostrar(element)
                 if encontrado == False:
                     controladorCliente.vista.clienteNoEncontrado()
             elif opcion == 3:
@@ -181,7 +179,6 @@ class ControladorEvento:
                         archivo = element.getNombreArchivo()
                         with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
                             self.vista.mostrar(file.read())
-                        self.vista.mostrar(element)
                         encontrado = True
                 if encontrado == False:
                     self.vista.eventoNoEncontrado()
@@ -296,7 +293,6 @@ class ControladorEvento:
                         controladorCliente.modificarCliente()
             
             elif opcion == 3:
-<<<<<<< HEAD
                 self.vista.tiempo_espera()
                 opcionCostos = 0
                 while opcionCostos != 4:
@@ -318,7 +314,5 @@ class ControladorEvento:
                         if opcionAdmin.upper() == "S":
                             self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
             elif opcion == 4:
-=======
->>>>>>> 757100f950091c9562497a3940e800d11dc625fe
                 self.vista.cerrando_programa()
                 self.vista.limpiar_pantalla()
