@@ -1,10 +1,11 @@
 class Evento:
-    def __init__(self, fecha, cliente, tipoEvento, servicios, precioTotal):
+    def __init__(self, fecha, cliente, tipoEvento, servicios, precioTotal, nombreArchivo):
         self._fecha = fecha
         self._cliente = cliente
         self._tipoEvento = tipoEvento
         self._servicios = servicios
         self._precioTotal = precioTotal
+        self._nombreArchivo = nombreArchivo
     
     def getFecha(self):
         return self._fecha
@@ -36,6 +37,12 @@ class Evento:
     def setPrecioTotal(self, precioTotal):
         self._precioTotal = precioTotal
     
+    def getNombreArchivo(self):
+        return self._nombreArchivo
+    
+    def setNombreArchivo(self, nombreArchivo):
+        self._nombreArchivo = nombreArchivo
+    
     def __str__(self) -> str:
-        return str(self._fecha)+";"+str(self._cliente)+";"+str(self._tipoEvento)+";"+str(self._servicios)+";"+str(self._precioTotal)
+        return str(self._fecha)+";"+str(self._cliente)+";"+str(self._tipoEvento)+";"+str(self._servicios)+";"+str(self._precioTotal)+";"+str(self._nombreArchivo)
     
