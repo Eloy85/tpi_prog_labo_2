@@ -14,7 +14,7 @@ class ControladorEvento:
         self.archivoClientes = archivoClientes
         self.archivoFecha = archivoFecha
         self.archivoServicios = archivoServicios
-        self.evento = Evento(fecha='', cliente='', tipoEvento='', servicios=[], precioTotal=0.0)
+        self.evento = Evento(fecha='', cliente='', tipoEvento='', servicios=[], precioTotal=0.0, nombreArchivo='')
         self.vista = VistaEvento()
         self.detalleEvento = DetalleEvento()
         self.controlador_detalle_evento = ControladorDetalleEvento()
@@ -25,7 +25,7 @@ class ControladorEvento:
         with open(self.archivoEventos, "r", encoding="utf-8") as archivo:
             for linea in archivo.readlines():
                 linea = linea.strip().split(";")
-                evento = Evento(linea[0], linea[1], linea[2], linea[3], linea[4])
+                evento = Evento(linea[0], linea[1], linea[2], linea[3], linea[4], linea[5])
                 self.listaEventos.append(evento)
     
     def ingresarCliente(self):
@@ -94,7 +94,7 @@ class ControladorEvento:
                 if opcion == servicio.getCodigo() and servicio.getFueElegido() == False:
                     if servicio.getCodigo() == 7:
                         servicio.setCantidad(controladorServicio.vista.cantidadServicio())
-                    self.evento.setServicios(servicio)
+                    self.evento.setServicios(servicio.getTipoServicio())
                     self.detalleEvento.setServicios(f"{servicio.getTipoServicio()} - ${servicio.getPrecio()} - Cantidad", servicio.getCantidad())
                     precioServicios += (servicio.getPrecio() * servicio.getCantidad())
                     servicio.setFueElegido(True)
@@ -102,23 +102,12 @@ class ControladorEvento:
     
     def confirmarEvento(self):
         self.detalleEvento.calcularIva()
-        self.vista.mostrar(f"Cliente: {self.evento.getCliente()}")
-        self.vista.mostrar(f"Evento: {self.evento.getTipoEvento()}")
-        self.vista.mostrar(f"Fecha: {self.evento.getFecha()}")
-        self.vista.mostrar("Servicios seleccionados:")
-        for servicio in self.evento.getServicios():
-            self.vista.mostrar(f"{servicio.getTipoServicio()} - ${servicio.getPrecio()} x {servicio.getCantidad()}")
-        self.vista.mostrar("--------------------------")
-        self.vista.mostrar("Conceptos a abonar:")
-        self.vista.mostrar(f"Costo administrativo: ${self.detalleEvento.getCostoAdministrativo()}")
-        self.vista.mostrar(f"Servicios seleccionados: ${self.detalleEvento.getCostoServicios()}")
-        self.vista.mostrar(f"IVA: ${self.detalleEvento.getIva()}")
-        self.vista.mostrar(f"TOTAL: ${self.detalleEvento.obtenerTotal()}")
-        self.vista.mostrar("\n")
+        self.evento.setPrecioTotal(self.detalleEvento.obtenerTotal())
+        self.detalleEvento.calcularSenia()
         self.vista.mostrar(self.detalleEvento)
-        self.vista.mostrar(f"Si los datos son correctos, el monto de la seña que se debe abonar en este acto es de ${self.detalleEvento.calcularSenia()}")
         opcion = self.vista.confirmarEvento()
         if opcion.upper() == "S":
+            self.evento.setNombreArchivo(f"{str(self.detalleEvento.getFecha()).replace('/', '-')}-{str(self.detalleEvento.getCliente()).strip().split('_')}.txt")
             self.listaEventos.append(self.evento)
             self.guardarDetalleEvento()
             self.vista.eventoRegistrado()
@@ -135,7 +124,7 @@ class ControladorEvento:
     def guardarArchivo(self):
         with open(self.archivoEventos, "w", encoding="utf-8") as archivo:
             for evento in self.listaEventos:
-                cadena = ";".join([str(evento.getFecha()), str(evento.getCliente()), str(evento.getTipoEvento()), str(evento.getServicios()), str(evento.getPrecioTotal())])
+                cadena = ";".join([str(evento.getFecha()), str(evento.getCliente()), str(evento.getTipoEvento()), str(evento.getServicios()), str(evento.getPrecioTotal()), str(evento.getNombreArchivo())])
                 archivo.write(cadena + "\n")
 
     def consultarEvento(self):
@@ -151,6 +140,9 @@ class ControladorEvento:
                 fecha = fecha.strftime("%#d/%#m/%Y")
                 for element in self.listaEventos:
                     if element.getFecha() == fecha:
+                        archivo = element.getNombreArchivo()
+                        with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
+                            self.vista.mostrar(file.read())
                         self.vista.mostrar(element)
             elif opcion == 2:
                 clienteBuscado = ''
@@ -164,6 +156,9 @@ class ControladorEvento:
                         encontrado = True
                 for element in self.listaEventos:
                     if element.getCliente() == clienteBuscado:
+                        archivo = element.getNombreArchivo()
+                        with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
+                            self.vista.mostrar(file.read())
                         self.vista.mostrar(element)
                 if encontrado == False:
                     controladorCliente.vista.clienteNoEncontrado()
@@ -172,6 +167,9 @@ class ControladorEvento:
                 self.ingresarTipoEvento()
                 for element in self.listaEventos:
                     if element.getTipoEvento() == self.evento.getTipoEvento():
+                        archivo = element.getNombreArchivo()
+                        with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
+                            self.vista.mostrar(file.read())
                         self.vista.mostrar(element)
                         encontrado = True
                 if encontrado == False:
