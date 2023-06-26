@@ -12,7 +12,7 @@ class VistaServicio:
         return float(input("Ingrese el nuevo precio: "))
     
     def estadoServicio(self):
-        return int(input("Ingrese 1 para activar el servicio o 0 para desactivarlo: "))
+        print("El estado del servicio fue cambiado con éxito.")
     
     def cantidadServicio(self):
         return int(input("Ingrese la cantidad que desea contratar de este servicio: "))

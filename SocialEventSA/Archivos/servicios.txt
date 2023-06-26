@@ -1,0 +1,7 @@
+1;DJ;Servicio de DJ Carlitoxxx;True;50000.0
+2;Decoración;Servicio de decoración a tu gusto;True;25000.0
+3;Cotillón;Servicio de cotillón;True;20000.0
+4;Máquina de humo;Máquina expendedora de humo;True;15000.0
+5;Maquillaje;Servicio de maquillaje toda la noche;True;10000.0
+6;Música en vivo;Música tocada en vivo por la Banda de Pepito;True;25000.0
+7;Catering; Servicio de catering para 50 personas;True;20000.0

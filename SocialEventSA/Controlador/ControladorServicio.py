@@ -40,7 +40,7 @@ class ControladorServicio:
     
     def modificarEstadoServicio(self):
         for servicio in self.listaServicios:
-            self.vista.mostrarServicio(str(servicio.getCodigo())+" - "+servicio.getTipoServicio()+" - "+servicio.getDescripcion()+" - Estado: "+str(int(servicio.getEstado())))
+            self.vista.mostrarServicio(str(servicio.getCodigo())+" - "+servicio.getTipoServicio()+" - "+servicio.getDescripcion()+" - Estado: "+str(int(servicio.getDisponibilidad())))
         opcion = self.vista.seleccionarServicio()
         for servicio in self.listaServicios:
             if opcion == servicio.getCodigo():

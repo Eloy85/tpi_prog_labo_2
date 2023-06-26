@@ -1,15 +1,15 @@
+import os
 from Modelo.Evento import Evento
 from Modelo.DetalleEvento import DetalleEvento
 from Vista.VistaEvento import VistaEvento
 from Controlador.ControladorCliente import ControladorCliente
 from Controlador.ControladorFecha import ControladorFecha
 from Controlador.ControladorServicio import ControladorServicio
-from Controlador.ControladorDetalleEvento import ControladorDetalleEvento
 from Vista.VistaCliente import VistaCliente
 from datetime import datetime, timedelta
 
 class ControladorEvento:
-    def __init__(self, archivoEventos, archivoClientes, archivoFecha, archivoServicios):
+    def __init__(self, archivoEventos, archivoClientes, archivoFecha, archivoServicios, archivoCosto):
         self.archivoEventos = archivoEventos
         self.archivoClientes = archivoClientes
         self.archivoFecha = archivoFecha
@@ -17,9 +17,9 @@ class ControladorEvento:
         self.evento = Evento(fecha='', cliente='', tipoEvento='', servicios=[], precioTotal=0.0, nombreArchivo='')
         self.vista = VistaEvento()
         self.detalleEvento = DetalleEvento()
-        self.controlador_detalle_evento = ControladorDetalleEvento()
         self.vista_cliente = VistaCliente()
         self.listaEventos = []
+        self.archivoCosto = archivoCosto
     
     def cargarArchivo(self):
         with open(self.archivoEventos, "r", encoding="utf-8") as archivo:
@@ -27,6 +27,9 @@ class ControladorEvento:
                 linea = linea.strip().split(";")
                 evento = Evento(linea[0], linea[1], linea[2], linea[3], linea[4], linea[5])
                 self.listaEventos.append(evento)
+        with open(self.archivoCosto, "r", encoding="utf-8") as archivo:
+            for linea in archivo.readlines():
+                self.detalleEvento.setCostoAdministrativo(float(linea))
     
     def ingresarCliente(self):
         controladorCliente = ControladorCliente(self.archivoClientes)
@@ -34,6 +37,7 @@ class ControladorEvento:
         if controladorCliente.consultarCliente():
             self.evento.setCliente(controladorCliente.cliente)
             self.detalleEvento.setCliente(controladorCliente.cliente)
+            return True
         else:
             registrarCliente = self.vista.noSeEncontroCliente()
             if registrarCliente.upper() == "S":
@@ -41,6 +45,9 @@ class ControladorEvento:
                 self.evento.setCliente(nuevoCliente)
                 self.detalleEvento.setCliente(nuevoCliente)
                 controladorCliente.guardarArchivo()
+                return True
+            else:
+                return False
     
     def ingresarFecha(self):
         controladorFecha = ControladorFecha(self.archivoFecha)
@@ -51,7 +58,6 @@ class ControladorEvento:
         if controladorFecha.verificarDisponibilidad():
             self.evento.setFecha(controladorFecha.fecha)
             self.detalleEvento.setFecha(controladorFecha.fecha)
-            controladorFecha.guardarArchivo()
             return True
         else:
             fechaNueva = controladorFecha.encontrarFechaLibreCercana()
@@ -66,6 +72,8 @@ class ControladorEvento:
         while var1<2:
             try:
                 tipoEvento = self.vista.tipoEvento()
+                while tipoEvento < 1 or tipoEvento > 5:
+                    tipoEvento = self.vista.tipoEvento()
                 match tipoEvento:
                     case 1:
                         self.evento.setTipoEvento("Casamiento")
@@ -83,7 +91,7 @@ class ControladorEvento:
                         self.evento.setTipoEvento("Otro")
                         self.detalleEvento.setTipoEvento("Otro")
                 var1=3
-            except ValueError: self.vista.valorIncorrecto()
+            except ValueError: self.vista.dato_incorrecto()
     def elegirServicios(self):
         controladorServicio = ControladorServicio(self.archivoServicios)
         controladorServicio.inicializarServicios()
@@ -113,6 +121,10 @@ class ControladorEvento:
         if opcion.upper() == "S":
             self.evento.setNombreArchivo(f"{str(self.detalleEvento.getFecha()).replace('/', '-')}-{str(self.detalleEvento.getCliente()).strip().split('_')}.txt")
             self.listaEventos.append(self.evento)
+            controladorFecha = ControladorFecha(self.archivoFecha)
+            controladorFecha.cargarArchivo()
+            controladorFecha.fechasReservadas.append(self.evento.getFecha())
+            controladorFecha.guardarArchivo()
             self.guardarDetalleEvento()
             self.vista.eventoRegistrado()
     
@@ -140,7 +152,7 @@ class ControladorEvento:
                     opcion = self.vista.consultarEvento()
                     var1=3  
                 except ValueError:
-                    self.vista.valorIncorrecto()
+                    self.vista.dato_incorrecto()
             
             if opcion == 1:
                 controladorFecha = ControladorFecha(self.archivoFecha)
@@ -167,8 +179,12 @@ class ControladorEvento:
                 for element in self.listaEventos:
                     if element.getCliente() == clienteBuscado:
                         archivo = element.getNombreArchivo()
-                        with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
-                            self.vista.mostrar(file.read())
+                        try:
+                            with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
+                                self.vista.mostrar(file.read())
+                                self.vista.mostrar("\n")
+                        except FileNotFoundError:
+                            self.vista.archivoNoEncontrado()
                 if encontrado == False:
                     controladorCliente.vista.clienteNoEncontrado()
             elif opcion == 3:
@@ -192,10 +208,15 @@ class ControladorEvento:
         fecha_str = fecha.strftime("%#d/%#m/%Y")
         for element in self.listaEventos:
             if element.getFecha() == fecha_str:
-                self.vista.mostrar(element)
+                archivo = element.getNombreArchivo()
+                with open(f"Archivos\\Eventos\\{archivo}", "r", encoding="utf-8") as file:
+                    self.vista.mostrar(file.read())
                 respuesta = self.vista.cancelarEvento()
                 if respuesta.upper() == "S":
                     self.calcularReintegro(fecha, float(element.getPrecioTotal()))
+                    nombreArchivo = "Archivos\\Eventos\\"+element.getNombreArchivo()
+                    if os.path.exists(nombreArchivo):
+                        os.remove(nombreArchivo)
                     self.listaEventos.remove(element)
                     self.guardarArchivo()
                     controladorFecha.cargarArchivo()
@@ -224,15 +245,17 @@ class ControladorEvento:
             while var1<2:
                 try:
                     opcion = self.vista.menuPrincipal()
-                    var1=3  
+                    var1=3
+                    while opcion < 1 or opcion > 4:
+                        self.vista.limpiar_pantalla()
+                        self.vista.dato_incorrecto()
+                        self.vista.limpiar_pantalla()
+                        opcion = self.vista.menuPrincipal()
                 except ValueError:
-                    self.vista.valorIncorrecto()
+                    self.vista.limpiar_pantalla()
+                    self.vista.dato_incorrecto()
+                    self.vista.limpiar_pantalla()
             
-            while opcion < 1 or opcion > 4:
-                self.vista.limpiar_pantalla()
-                self.vista.dato_incorrecto()
-                self.vista.limpiar_pantalla()
-                opcion = self.vista.menuPrincipal()
             if opcion == 1:
                 self.vista.tiempo_espera()
                 self.cargarArchivo()
@@ -241,22 +264,24 @@ class ControladorEvento:
                     while var1<2:
                         try:
                             opcionEventos = self.vista.menuEventos()
-                            var1=3  
+                            var1=3
+                            while opcionEventos < 1 or opcionEventos > 4:
+                                self.vista.limpiar_pantalla()
+                                self.vista.dato_incorrecto()
+                                self.vista.limpiar_pantalla()
+                                opcionEventos = self.vista.menuEventos()
                         except ValueError:
-                            self.vista.valorIncorrecto()
+                            self.vista.limpiar_pantalla()
+                            self.vista.dato_incorrecto()
+                            self.vista.limpiar_pantalla()
                     
-                    while opcionEventos < 1 or opcionEventos > 4:
-                        self.vista.limpiar_pantalla()
-                        self.vista.dato_incorrecto()
-                        self.vista.limpiar_pantalla()
-                        opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
-                        self.ingresarCliente()
-                        if self.ingresarFecha() == True:
-                            self.ingresarTipoEvento()
-                            self.elegirServicios()
-                            self.confirmarEvento()
-                            self.guardarArchivo()
+                        if self.ingresarCliente():
+                            if self.ingresarFecha() == True:
+                                self.ingresarTipoEvento()
+                                self.elegirServicios()
+                                self.confirmarEvento()
+                                self.guardarArchivo()
                     elif opcionEventos == 2:
                         self.consultarEvento()
                     elif opcionEventos == 3:
@@ -272,7 +297,7 @@ class ControladorEvento:
                             opcionClientes = controladorCliente.vista.menuClientes()
                             var1=3  
                         except ValueError:
-                            self.vista.valorIncorrecto()
+                            self.vista.dato_incorrecto()
                     
                     while opcionClientes < 1 or opcionClientes > 4:
                         self.vista.limpiar_pantalla()
@@ -295,24 +320,47 @@ class ControladorEvento:
             elif opcion == 3:
                 self.vista.tiempo_espera()
                 opcionCostos = 0
-                while opcionCostos != 4:
+                while opcionCostos != 3:
                     var1=1
                     while var1<2:
                         try:
                             opcionCostos = self.vista.costosPrecios()
                             var1=3  
                         except ValueError:
-                            self.vista.valorIncorrecto()
-                    
-                    while opcionCostos < 1 or opcionCostos > 4:
-                        self.vista.limpiar_pantalla()
-                        self.vista.dato_incorrecto()
-                        self.vista.limpiar_pantalla()
-                        opcionCostos = self.vista.costosPrecios()
+                            self.vista.dato_incorrecto()
                     if opcionCostos == 1:
-                        opcionAdmin = self.vista.costoAdministrativo()
+                        opcionAdmin = self.vista.costoAdministrativo(self.detalleEvento.getCostoAdministrativo())
                         if opcionAdmin.upper() == "S":
                             self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
+                            with open(self.archivoCosto, "w") as archivo:
+                                archivo.write(str(self.detalleEvento.getCostoAdministrativo()))
+                    elif opcionCostos == 2:
+                        controladorServicio = ControladorServicio(self.archivoServicios)
+                        try:
+                            controladorServicio.inicializarServicios()
+                        except FileNotFoundError:
+                            self.vista.archivoNoEncontrado()
+                            break
+                        for servicio in controladorServicio.listaServicios:
+                            self.vista.mostrar(f"{servicio.getCodigo()} - {servicio.getTipoServicio()} - ${servicio.getPrecio()}")
+                        self.vista.mostrar("0 - Volver al menú anterior")
+                        opcionServiciosPrecio = 1
+                        while opcionServiciosPrecio != 0:
+                            try:
+                                opcionServiciosPrecio = controladorServicio.vista.seleccionarServicio()
+                                while opcionServiciosPrecio < 0 or opcionServiciosPrecio > 7:
+                                    opcionServiciosPrecio = controladorServicio.vista.seleccionarServicio()
+                            except ValueError:
+                                self.vista.dato_incorrecto()
+                        for servicio in controladorServicio.listaServicios:
+                            if servicio.getCodigo() == opcionServiciosPrecio:
+                                try:
+                                    nuevoPrecio = self.vista.nuevoPrecio()
+                                    servicio.setPrecio(nuevoPrecio)
+                                except ValueError:
+                                    self.vista.dato_incorrecto()
+                        controladorServicio.guardarArchivo()
+
             elif opcion == 4:
                 self.vista.cerrando_programa()
                 self.vista.limpiar_pantalla()

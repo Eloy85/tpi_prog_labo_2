@@ -1,0 +1,10 @@
+Cliente: Dalbes, Horacio
+Tipo de evento: Aniversario
+Fecha: 5/7/2023
+Servicios: {'DJ - $50000.0 - Cantidad': 1, 'Decoración - $25000.0 - Cantidad': 1, 'Cotillón - $20000.0 - Cantidad': 1, 'Máquina de humo - $15000.0 - Cantidad': 1, 'Catering - $20000.0 - Cantidad': 2, 'Música en vivo - $25000.0 - Cantidad': 1, 'Maquillaje - $10000.0 - Cantidad': 1}
+Subtotal: $135000.0
+Costo administrativo: $25000.0
+IVA: $33600.0
+TOTAL: $193600.0
+Monto de la seña: $58080.0
+Saldo restante: $135520.0

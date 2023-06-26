@@ -21,12 +21,13 @@ class ControladorFecha:
         while var1<2:
             try:
                 self.fecha.setDia(self.vista.ingresarDia())
-                var1=3  
+                while self.fecha.getDia() < 1 or self.fecha.getDia() > 31:
+                    self.vista.valorIncorrecto()
+                    self.fecha.setDia(self.vista.ingresarDia())
+                var1=3
             except ValueError:
                 self.vista.valorIncorrecto()
-        if self.fecha.getDia() < 1 or self.fecha.getDia() > 31:
-            self.vista.valorIncorrecto()
-            self.fecha.setDia(self.vista.ingresarDia())
+        
     
     def ingresarMes(self):
         meses30 = [4, 6, 9, 11]
@@ -34,32 +35,30 @@ class ControladorFecha:
         while var1<2:
             try:
                 self.fecha.setMes(self.vista.ingresarMes())
+                while self.fecha.getMes() < 1 or self.fecha.getMes() > 12:
+                    self.vista.valorIncorrecto()
+                    self.fecha.setMes(self.vista.ingresarMes())
+                if self.fecha.getMes() in meses30 and self.fecha.getDia() > 30:
+                    self.vista.valorIncorrecto()
+                    self.ingresarDia()
+                elif self.fecha.getMes() == 2 and self.fecha.getDia() > 29:
+                    self.vista.valorIncorrecto()
+                    self.ingresarDia()
                 var1=3
             except ValueError:
                 self.vista.valorIncorrecto()
-        
-        if self.fecha.getMes() < 1 or self.fecha.getMes() > 12:
-            self.vista.valorIncorrecto()
-            self.fecha.setMes(self.vista.ingresarMes())
-        if self.fecha.getMes() in meses30 and self.fecha.getDia() > 30:
-            self.vista.valorIncorrecto()
-            self.ingresarDia()
-        elif self.fecha.getMes() == 2 and self.fecha.getDia() > 29:
-            self.vista.valorIncorrecto()
-            self.ingresarDia()
     
     def ingresarAnio(self):
         var1=1
         while var1<2:
             try:
                 self.fecha.setAnio(self.vista.ingresarAnio())
-                var1=3  
+                var1=3
+                while self.fecha.getMes() == 2 and self.fecha.esBisiesto() == False and self.fecha.getDia() > 28:
+                    self.vista.valorIncorrecto()
+                    self.ingresarDia()
             except ValueError:
                 self.vista.valorIncorrecto()
-        
-        if self.fecha.getMes() == 2 and self.fecha.esBisiesto() == False and self.fecha.getDia() > 28:
-            self.vista.valorIncorrecto()
-            self.ingresarDia()
     
     def verificarDisponibilidad(self):
         fecha = datetime(self.fecha.getAnio(), self.fecha.getMes(), self.fecha.getDia())

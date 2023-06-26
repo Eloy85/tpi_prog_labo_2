@@ -53,10 +53,10 @@ class ControladorCliente:
                 self.vista.mostrar(f"Teléfono: {cliente.getTelefono()}")
                 self.vista.mostrar(f"Email: {cliente.getEmail()}")
                 self.vista.mostrar(f"{'-':-^46}")
+                self.cliente = cliente
                 return True
         self.vistaEvento.limpiar_pantalla()
         self.vista.clienteNoEncontrado()
-        self.vista.dato_incorrecto()
         return False
     
     def modificarCliente(self):

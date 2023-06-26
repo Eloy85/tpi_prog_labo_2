@@ -8,9 +8,10 @@ class VistaEvento:
         print(f"|{'-':-^46}|")
         print(f"|{'1- Eventos.': >26}                    |")
         print(f"|{'2- Clientes.': >27}                   |")
-        print(f"|{'3- Salir.': >24}                      |")
+        print(f"|{'3- Costos y servicios.': >37}         |")
+        print(f"|{'4- Salir.': >24}                      |")
         print(f"|{'_':_^46}|")
-        return int(input("Ingrese la opción deseada (1/2/3): "))
+        return int(input("Ingrese la opción deseada (1/2/3/4): "))
 
     def menuEventos(self):
         print(f".{'-':-^46}.")
@@ -53,10 +54,9 @@ class VistaEvento:
         print(f"|{'-':-^46}|")
         print(f"|{'1- Modificar precio del costo administrativo.': >0} |")
         print(f"|{'2- Modificar precio de los servicios.': >0}         |")
-        print(f"|{'3- Modificar estado de los servicios.': >0}         |")
-        print(f"|{'4- Volver al menú principal.': >0}                  |")
+        print(f"|{'3- Volver al menú principal.': >0}                  |")
         print(f"|{'_':_^46}|")
-        return int(input("Ingrese su opción (1/2/3/4): "))
+        return int(input("Ingrese su opción (1/2/3): "))
     
     def costoAdministrativo(self, precio):
         print(f"El costo administrativo actual está establecido en ${precio}")
@@ -93,6 +93,9 @@ class VistaEvento:
 
     def dato_incorrecto(self):
         print(f"{'¡Error!: Dato ingresado incorrecto.': ^46}\n{'Intente Nuevamente':-^46}")
+    
+    def archivoNoEncontrado(self):
+        print(f"{'¡Error!: Archivo no encontrado.': ^46}")
 
     def cerrando_programa(self):
         print(f".{'-':-^46}.")

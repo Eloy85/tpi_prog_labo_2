@@ -1,5 +1,5 @@
 class Servicio:
-    def __init__(self, codigo=0, tipoServicio='', descripcion='', disponibilidad=True, precio=0.0, fueElegido=False, cantidad=1):
+    def __init__(self, codigo=0, tipoServicio='', descripcion='', disponibilidad=bool, precio=0.0, fueElegido=False, cantidad=1):
         self._codigo = codigo
         self._tipoServicio = tipoServicio
         self._descripcion = descripcion
