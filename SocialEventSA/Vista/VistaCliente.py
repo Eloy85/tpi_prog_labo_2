@@ -56,3 +56,6 @@ class VistaCliente:
         print(f"|{'7- Volver al menú principal.': >38}        |")
         print(f"|{'_':_^46}|")
         return int(input("Ingrese la opción deseada (1-7): "))
+    
+    def valorIncorrecto(self):
+        print("¡Error!: Valor ingresado incorrecto.")

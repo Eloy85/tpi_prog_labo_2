@@ -62,24 +62,28 @@ class ControladorEvento:
                 return False
     
     def ingresarTipoEvento(self):
-        tipoEvento = self.vista.tipoEvento()
-        match tipoEvento:
-            case 1:
-                self.evento.setTipoEvento("Casamiento")
-                self.detalleEvento.setTipoEvento("Casamiento")
-            case 2:
-                self.evento.setTipoEvento("Cumpleaños")
-                self.detalleEvento.setTipoEvento("Cumpleaños")
-            case 3:
-                self.evento.setTipoEvento("Bautismo")
-                self.detalleEvento.setTipoEvento("Bautismo")
-            case 4: 
-                self.evento.setTipoEvento("Aniversario")
-                self.detalleEvento.setTipoEvento("Aniversario")
-            case 5:
-                self.evento.setTipoEvento("Otro")
-                self.detalleEvento.setTipoEvento("Otro")
-    
+        var1=1
+        while var1<2:
+            try:
+                tipoEvento = self.vista.tipoEvento()
+                match tipoEvento:
+                    case 1:
+                        self.evento.setTipoEvento("Casamiento")
+                        self.detalleEvento.setTipoEvento("Casamiento")
+                    case 2:
+                        self.evento.setTipoEvento("Cumpleaños")
+                        self.detalleEvento.setTipoEvento("Cumpleaños")
+                    case 3:
+                        self.evento.setTipoEvento("Bautismo")
+                        self.detalleEvento.setTipoEvento("Bautismo")
+                    case 4: 
+                        self.evento.setTipoEvento("Aniversario")
+                        self.detalleEvento.setTipoEvento("Aniversario")
+                    case 5:
+                        self.evento.setTipoEvento("Otro")
+                        self.detalleEvento.setTipoEvento("Otro")
+                var1=3
+            except ValueError: self.vista.valorIncorrecto()
     def elegirServicios(self):
         controladorServicio = ControladorServicio(self.archivoServicios)
         controladorServicio.inicializarServicios()
@@ -130,7 +134,14 @@ class ControladorEvento:
     def consultarEvento(self):
         opcion = 0
         while opcion != 4:
-            opcion = self.vista.consultarEvento()
+            var1=1
+            while var1<2:
+                try:
+                    opcion = self.vista.consultarEvento()
+                    var1=3  
+                except ValueError:
+                    self.vista.valorIncorrecto()
+            
             if opcion == 1:
                 controladorFecha = ControladorFecha(self.archivoFecha)
                 controladorFecha.ingresarDia()
@@ -212,13 +223,27 @@ class ControladorEvento:
         opcionClientes = 0
         while opcion != 4:
             self.vista.tiempo_espera()
-            opcion = self.vista.menuPrincipal()
+            var1=1
+            while var1<2:
+                try:
+                    opcion = self.vista.menuPrincipal()
+                    var1=3  
+                except ValueError:
+                    self.vista.valorIncorrecto()
+            
             while opcion < 1 or opcion > 4:
                 opcion = self.vista.menuPrincipal()
             if opcion == 1:
                 self.cargarArchivo()
                 while opcionEventos != 4:
-                    opcionEventos = self.vista.menuEventos()
+                    var1=1
+                    while var1<2:
+                        try:
+                            opcionEventos = self.vista.menuEventos()
+                            var1=3  
+                        except ValueError:
+                            self.vista.valorIncorrecto()
+                    
                     while opcionEventos < 1 or opcionEventos > 4:
                         opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
@@ -237,7 +262,14 @@ class ControladorEvento:
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
                 while opcionClientes != 4:
-                    opcionClientes = controladorCliente.vista.menuClientes()
+                    var1=1
+                    while var1<2:
+                        try:
+                            opcionClientes = controladorCliente.vista.menuClientes()
+                            var1=3  
+                        except ValueError:
+                            self.vista.valorIncorrecto()
+                    
                     while opcionClientes < 1 or opcionClientes > 4:
                         opcionClientes = controladorCliente.vista.menuClientes()
                     if opcionClientes == 1:
@@ -249,16 +281,7 @@ class ControladorEvento:
                         controladorCliente.consultarCliente()
                     elif opcionClientes == 3:
                         controladorCliente.modificarCliente()
+            
             elif opcion == 3:
-                opcionCostos = 0
-                while opcionCostos != 4:
-                    opcionCostos = self.vista.costosPrecios()
-                    while opcionCostos < 1 or opcionCostos > 4:
-                        opcionCostos = self.vista.costosPrecios()
-                    if opcionCostos == 1:
-                        opcionAdmin = self.vista.costoAdministrativo()
-                        if opcionAdmin.upper() == "S":
-                            self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
-            elif opcion == 4:
                 self.vista.cerrando_programa()
                 self.vista.limpiar_pantalla()
