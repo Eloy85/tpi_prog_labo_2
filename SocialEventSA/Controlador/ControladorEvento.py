@@ -240,26 +240,22 @@ class ControladorEvento:
     
     def ejecutar(self):
         opcion = 0
-        opcionEventos = 0
-        opcionClientes = 0
         while opcion != 4:
             self.vista.tiempo_espera()
-            var1=1
-            while var1<2:
-                try:
-                    opcion = self.vista.menuPrincipal()
-                    var1=3
-                    while opcion < 1 or opcion > 4:
-                        self.vista.limpiar_pantalla()
-                        self.vista.dato_incorrecto()
-                        self.vista.limpiar_pantalla()
-                        opcion = self.vista.menuPrincipal()
-                except ValueError:
+            try:
+                opcion = self.vista.menuPrincipal()
+                while opcion < 1 or opcion > 4:
                     self.vista.limpiar_pantalla()
                     self.vista.dato_incorrecto()
                     self.vista.limpiar_pantalla()
+                    opcion = self.vista.menuPrincipal()
+            except ValueError:
+                self.vista.limpiar_pantalla()
+                self.vista.dato_incorrecto()
+                self.vista.limpiar_pantalla()
             
             if opcion == 1:
+                opcionEventos = 0
                 self.vista.tiempo_espera()
                 self.cargarArchivo()
                 while opcionEventos != 4:
@@ -321,13 +317,15 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 opcionCostos = 0
                 while opcionCostos != 3:
-                    var1=1
-                    while var1<2:
-                        try:
-                            opcionCostos = self.vista.costosPrecios()
-                            var1=3  
-                        except ValueError:
+                    try:
+                        opcionCostos = self.vista.costosPrecios()
+                        while opcionCostos < 1 or opcionCostos > 3:
+                            self.vista.limpiar_pantalla()
                             self.vista.dato_incorrecto()
+                            self.vista.limpiar_pantalla()
+                            opcionCostos = self.vista.costosPrecios()
+                    except ValueError:
+                        self.vista.dato_incorrecto()
                     if opcionCostos == 1:
                         try:
                             with open(self.archivoCosto, "r") as f:
