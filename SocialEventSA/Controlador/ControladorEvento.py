@@ -149,13 +149,10 @@ class ControladorEvento:
     def consultarEvento(self):
         opcion = 0
         while opcion != 4:
-            var1=1
-            while var1<2:
-                try:
-                    opcion = self.vista.consultarEvento()
-                    var1=3  
-                except ValueError:
-                    self.vista.dato_incorrecto()
+            try:
+                opcion = self.vista.consultarEvento()
+            except ValueError:
+                self.vista.dato_incorrecto()
             
             if opcion == 1:
                 controladorFecha = ControladorFecha(self.archivoFecha)
@@ -240,43 +237,36 @@ class ControladorEvento:
     
     def ejecutar(self):
         opcion = 0
-        opcionEventos = 0
-        opcionClientes = 0
         while opcion != 4:
             self.vista.tiempo_espera()
-            var1=1
-            while var1<2:
-                try:
-                    opcion = self.vista.menuPrincipal()
-                    var1=3
-                    while opcion < 1 or opcion > 4:
-                        self.vista.limpiar_pantalla()
-                        self.vista.dato_incorrecto()
-                        self.vista.limpiar_pantalla()
-                        opcion = self.vista.menuPrincipal()
-                except ValueError:
+            try:
+                opcion = self.vista.menuPrincipal()
+                while opcion < 1 or opcion > 4:
                     self.vista.limpiar_pantalla()
                     self.vista.dato_incorrecto()
                     self.vista.limpiar_pantalla()
+                    opcion = self.vista.menuPrincipal()
+            except ValueError:
+                self.vista.limpiar_pantalla()
+                self.vista.dato_incorrecto()
+                self.vista.limpiar_pantalla()
             
             if opcion == 1:
                 self.vista.tiempo_espera()
                 self.cargarArchivo()
+                opcionEventos = 0
                 while opcionEventos != 4:
-                    var1=1
-                    while var1<2:
-                        try:
-                            opcionEventos = self.vista.menuEventos()
-                            var1=3
-                            while opcionEventos < 1 or opcionEventos > 4:
-                                self.vista.limpiar_pantalla()
-                                self.vista.dato_incorrecto()
-                                self.vista.limpiar_pantalla()
-                                opcionEventos = self.vista.menuEventos()
-                        except ValueError:
+                    try:
+                        opcionEventos = self.vista.menuEventos()
+                        while opcionEventos < 1 or opcionEventos > 4:
                             self.vista.limpiar_pantalla()
                             self.vista.dato_incorrecto()
                             self.vista.limpiar_pantalla()
+                            opcionEventos = self.vista.menuEventos()
+                    except ValueError:
+                        self.vista.limpiar_pantalla()
+                        self.vista.dato_incorrecto()
+                        self.vista.limpiar_pantalla()
                     
                     if opcionEventos == 1:
                         if self.ingresarCliente():
@@ -293,6 +283,7 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
+                opcionClientes = 0
                 while opcionClientes != 4:
                     try:
                         opcionClientes = controladorCliente.vista.menuClientes()
@@ -301,7 +292,6 @@ class ControladorEvento:
                             self.vista.dato_incorrecto()
                             self.vista.limpiar_pantalla()
                             opcionClientes = controladorCliente.vista.menuClientes()
-                            var1=3  
                     except ValueError:
                         self.vista.dato_incorrecto()
 
@@ -322,13 +312,10 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 opcionCostos = 0
                 while opcionCostos != 3:
-                    var1=1
-                    while var1<2:
-                        try:
-                            opcionCostos = self.vista.costosPrecios()
-                            var1=3  
-                        except ValueError:
-                            self.vista.dato_incorrecto()
+                    try:
+                        opcionCostos = self.vista.costosPrecios()
+                    except ValueError:
+                        self.vista.dato_incorrecto()
                     if opcionCostos == 1:
                         with open(self.archivoCosto, "r") as f:
                             for line in f.readlines():
