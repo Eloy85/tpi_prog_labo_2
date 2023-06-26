@@ -67,6 +67,8 @@ class ControladorFecha:
                 return False
         self.fechasReservadas.append(self.fecha)
         self.vista.reservaExitosa()
+        self.vista.tiempo_espera_extenso()
+        self.vista.tiempo_espera()
         return True
 
     def encontrarFechaLibreCercana(self):

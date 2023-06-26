@@ -4,3 +4,4 @@ Estévez,Gabriela,45678912,Guatemala 133,3535432109,gabi_estevez@hotmail.com
 Flores,Estela,22987654,Jujuy 3010,3534123456,estelaflores54@gmail.com
 Dalbes,Horacio,16789123,Colombia 382,3535444321,hdalbes@gmail.com
 Pereyra,Facundo,44433973,Lamadrid 629,3534235470,facundopereyra@gmail.com
+Lopez,Jose,123453322,mitre 123,314542542,lopezjose@gmail.com

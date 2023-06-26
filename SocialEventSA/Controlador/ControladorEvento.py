@@ -99,6 +99,7 @@ class ControladorEvento:
         opcion = 1
         while opcion != 0:
             for linea in self.evento.getServicios():
+                self.vista.limpiar_pantalla()
                 self.vista.mostrar(linea)
             self.vista.mostrar(f"Precio total de los servicios seleccionados: ${precioServicios}")
             opcion = controladorServicio.elegirServicios()
@@ -127,6 +128,8 @@ class ControladorEvento:
             controladorFecha.guardarArchivo()
             self.guardarDetalleEvento()
             self.vista.eventoRegistrado()
+            self.vista.tiempo_espera_extenso()
+            self.vista.tiempo_espera()
     
     def guardarDetalleEvento(self):
         with open(f"Archivos\\Eventos\\{str(self.detalleEvento.getFecha()).replace('/', '-')}-{str(self.detalleEvento.getCliente()).strip().split('_')}.txt", 'w+', encoding='utf-8') as archivo:
