@@ -232,8 +232,12 @@ class ControladorEvento:
                     self.vista.valorIncorrecto()
             
             while opcion < 1 or opcion > 4:
+                self.vista.limpiar_pantalla()
+                self.vista.dato_incorrecto()
+                self.vista.limpiar_pantalla()
                 opcion = self.vista.menuPrincipal()
             if opcion == 1:
+                self.vista.tiempo_espera()
                 self.cargarArchivo()
                 while opcionEventos != 4:
                     var1=1
@@ -245,6 +249,9 @@ class ControladorEvento:
                             self.vista.valorIncorrecto()
                     
                     while opcionEventos < 1 or opcionEventos > 4:
+                        self.vista.limpiar_pantalla()
+                        self.vista.dato_incorrecto()
+                        self.vista.limpiar_pantalla()
                         opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
                         self.ingresarCliente()
@@ -271,6 +278,9 @@ class ControladorEvento:
                             self.vista.valorIncorrecto()
                     
                     while opcionClientes < 1 or opcionClientes > 4:
+                        self.vista.limpiar_pantalla()
+                        self.vista.dato_incorrecto()
+                        self.vista.limpiar_pantalla()
                         opcionClientes = controladorCliente.vista.menuClientes()
                     if opcionClientes == 1:
                         self.vista.tiempo_espera()
@@ -279,9 +289,36 @@ class ControladorEvento:
                     elif opcionClientes == 2:
                         self.vista.tiempo_espera()
                         controladorCliente.consultarCliente()
+                        self.vista.tiempo_espera_extenso()
+                        self.vista.tiempo_espera()
                     elif opcionClientes == 3:
+                        self.vista.tiempo_espera()
                         controladorCliente.modificarCliente()
             
             elif opcion == 3:
+<<<<<<< HEAD
+                self.vista.tiempo_espera()
+                opcionCostos = 0
+                while opcionCostos != 4:
+                    var1=1
+                    while var1<2:
+                        try:
+                            opcionCostos = self.vista.costosPrecios()
+                            var1=3  
+                        except ValueError:
+                            self.vista.valorIncorrecto()
+                    
+                    while opcionCostos < 1 or opcionCostos > 4:
+                        self.vista.limpiar_pantalla()
+                        self.vista.dato_incorrecto()
+                        self.vista.limpiar_pantalla()
+                        opcionCostos = self.vista.costosPrecios()
+                    if opcionCostos == 1:
+                        opcionAdmin = self.vista.costoAdministrativo()
+                        if opcionAdmin.upper() == "S":
+                            self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
+            elif opcion == 4:
+=======
+>>>>>>> 757100f950091c9562497a3940e800d11dc625fe
                 self.vista.cerrando_programa()
                 self.vista.limpiar_pantalla()
