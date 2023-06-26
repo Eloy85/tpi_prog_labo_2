@@ -1,0 +1,10 @@
+Cliente: Molina, Eloy
+Tipo de evento: Cumpleaños
+Fecha: 18/11/2023
+Servicios: {'DJ - $50000.0 - Cantidad': 1, 'Cotillón - $20000.0 - Cantidad': 1, 'Música en vivo - $25000.0 - Cantidad': 1, 'Catering - $20000.0 - Cantidad': 2}
+Subtotal: $135000.0
+Costo administrativo: $0.0
+IVA: $28350.0
+TOTAL: $163350.0
+Monto de la seña: $49005.0
+Saldo restante: $114345.0
