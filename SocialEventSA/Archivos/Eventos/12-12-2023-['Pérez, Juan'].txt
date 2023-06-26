@@ -1,0 +1,10 @@
+Cliente: Pérez, Juan
+Tipo de evento: Casamiento
+Fecha: 12/12/2023
+Servicios: {'Decoración - $25000.0 - Cantidad': 1, 'Cotillón - $20000.0 - Cantidad': 1, 'Catering - $20000.0 - Cantidad': 2}
+Subtotal: $85000.0
+Costo administrativo: $0.0
+IVA: $17850.0
+TOTAL: $102850.0
+Monto de la seña: $30855.0
+Saldo restante: $71995.0

@@ -293,20 +293,17 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
+                opcionClientes = 0
                 while opcionClientes != 4:
-                    var1=1
-                    while var1<2:
-                        try:
-                            opcionClientes = controladorCliente.vista.menuClientes()
-                            var1=3  
-                        except ValueError:
-                            self.vista.dato_incorrecto()
-                    
-                    while opcionClientes < 1 or opcionClientes > 4:
-                        self.vista.limpiar_pantalla()
-                        self.vista.dato_incorrecto()
-                        self.vista.limpiar_pantalla()
+                    try:
                         opcionClientes = controladorCliente.vista.menuClientes()
+                        while opcionClientes < 1 or opcionClientes > 4:
+                            self.vista.limpiar_pantalla()
+                            self.vista.dato_incorrecto()
+                            self.vista.limpiar_pantalla()
+                            opcionClientes = controladorCliente.vista.menuClientes()
+                    except ValueError:
+                        self.vista.dato_incorrecto()
                     if opcionClientes == 1:
                         self.vista.tiempo_espera()
                         controladorCliente.registrarCliente()
@@ -332,6 +329,12 @@ class ControladorEvento:
                         except ValueError:
                             self.vista.dato_incorrecto()
                     if opcionCostos == 1:
+                        try:
+                            with open(self.archivoCosto, "r") as f:
+                                for line in f:
+                                    self.detalleEvento.setCostoAdministrativo(float(line))
+                        except FileNotFoundError:
+                            self.vista.archivoNoEncontrado()
                         opcionAdmin = self.vista.costoAdministrativo(self.detalleEvento.getCostoAdministrativo())
                         if opcionAdmin.upper() == "S":
                             self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
@@ -355,14 +358,15 @@ class ControladorEvento:
                                     opcionServiciosPrecio = controladorServicio.vista.seleccionarServicio()
                             except ValueError:
                                 self.vista.dato_incorrecto()
-                        for servicio in controladorServicio.listaServicios:
-                            if servicio.getCodigo() == opcionServiciosPrecio:
-                                try:
-                                    nuevoPrecio = self.vista.nuevoPrecio()
-                                    servicio.setPrecio(nuevoPrecio)
-                                except ValueError:
-                                    self.vista.dato_incorrecto()
-                        controladorServicio.guardarArchivo()
+                            for servicio in controladorServicio.listaServicios:
+                                if servicio.getCodigo() == opcionServiciosPrecio:
+                                    try:
+                                        nuevoPrecio = self.vista.nuevoPrecio()
+                                        servicio.setPrecio(nuevoPrecio)
+                                    except ValueError:
+                                        self.vista.dato_incorrecto()
+                            controladorServicio.guardarArchivo()
+                            break
 
             elif opcion == 4:
                 self.vista.cerrando_programa()

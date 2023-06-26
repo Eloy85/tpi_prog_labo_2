@@ -1,0 +1,10 @@
+Cliente: Flores, Estela
+Tipo de evento: Bautismo
+Fecha: 15/10/2023
+Servicios: {'Decoración - $25000.0 - Cantidad': 1, 'Catering - $20000.0 - Cantidad': 2}
+Subtotal: $65000.0
+Costo administrativo: $25000.0
+IVA: $18900.0
+TOTAL: $108900.0
+Monto de la seña: $32670.0
+Saldo restante: $76230.0
