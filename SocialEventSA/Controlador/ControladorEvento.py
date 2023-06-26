@@ -155,6 +155,7 @@ class ControladorEvento:
                     self.vista.dato_incorrecto()
             
             if opcion == 1:
+                var2=0
                 controladorFecha = ControladorFecha(self.archivoFecha)
                 controladorFecha.ingresarDia()
                 controladorFecha.ingresarMes()
@@ -239,7 +240,7 @@ class ControladorEvento:
         opcion = 0
         opcionEventos = 0
         opcionClientes = 0
-        while opcion != 4:
+        while opcion != 3:
             self.vista.tiempo_espera()
             var1=1
             while var1<2:
@@ -259,7 +260,7 @@ class ControladorEvento:
             if opcion == 1:
                 self.vista.tiempo_espera()
                 self.cargarArchivo()
-                while opcionEventos != 4:
+                while opcionEventos != 3:
                     var1=1
                     while var1<2:
                         try:
@@ -290,7 +291,7 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
-                while opcionClientes != 4:
+                while opcionClientes != 3:
                     var1=1
                     while var1<2:
                         try:
@@ -315,8 +316,7 @@ class ControladorEvento:
                         self.vista.tiempo_espera()
                     elif opcionClientes == 3:
                         self.vista.tiempo_espera()
-                        controladorCliente.modificarCliente()
-            
+                        controladorCliente.modificarCliente()     
             elif opcion == 3:
                 self.vista.tiempo_espera()
                 opcionCostos = 0

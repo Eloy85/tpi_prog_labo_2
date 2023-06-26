@@ -118,6 +118,12 @@ class VistaEvento:
     def limpiar_pantalla(self):
         time.sleep(1.5)
         os.system("cls")
+        
+    def valorIncorrecto(self):
+        print("¡Error!: Valor ingresado incorrecto.")
+
+    def No_hay_evento(self):
+        print("No hay evento cargado que coincida con su parametro de busqueda")
 
     def tiempo_espera_extenso(self):
         time.sleep(5)
