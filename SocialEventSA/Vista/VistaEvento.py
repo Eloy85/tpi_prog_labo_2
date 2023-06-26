@@ -92,6 +92,9 @@ class VistaEvento:
     def noHayDevolucion(self):
         print("No corresponde devolver dinero al cliente ya que la cancelación no se realizó con 15 días de anticipación.")
 
+    def dato_incorrecto(self):
+        print(f"{'¡Error!: Dato ingresado incorrecto.': ^46}\n{'Intente Nuevamente':-^46}")
+
     def cerrando_programa(self):
         print(f".{'-':-^46}.")
         print(f"|{'-CERRANDO PROGRAMA-': ^46}|")
@@ -113,5 +116,7 @@ class VistaEvento:
     def limpiar_pantalla(self):
         time.sleep(1.5)
         os.system("cls")
-    def valorIncorrecto(self):
-        print("¡Error!: Valor ingresado incorrecto.")
+
+    def tiempo_espera_extenso(self):
+        time.sleep(5)
+        os.system("cls")

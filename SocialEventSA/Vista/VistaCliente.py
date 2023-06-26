@@ -31,14 +31,17 @@ class VistaCliente:
     def email(self):
         return input("Ingrese el email del cliente: ")
     
-    def datoInvalido(self):
-        print("¡Error!: Dato ingresado no válido.")
+    def dato_incorrecto(self):
+        print(f"{'¡Error!: Dato ingresado incorrecto.': ^46}\n{'Intente Nuevamente':-^46}")
     
     def registroExitoso(self):
         print("¡El cliente se ha registrado exitosamente!")
     
     def clienteNoEncontrado(self):
-        print("No se encontró el cliente.")
+        print(f"{'Cliente ingresado no existente':-^46}")
+
+    def clienteEncontrado(self):
+        print(f"{'Cliente encontrado con Éxito':-^46}")
     
     def mostrar(self, dato):
         print(dato)

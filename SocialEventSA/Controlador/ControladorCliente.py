@@ -46,12 +46,17 @@ class ControladorCliente:
         
         for cliente in self.listaClientes:
             if int(cliente.getDni()) == dniCliente:
-                self.vista.mostrar(str(cliente.getApellido())+", "+str(cliente.getNombre())+", "+str(cliente.getDomicilio())+", "+str(cliente.getTelefono())+", "+str(cliente.getEmail()))
-                self.cliente = cliente
+                self.vistaEvento.limpiar_pantalla()
+                self.vista.clienteEncontrado()
+                self.vista.mostrar(f"Cliente: {cliente.getApellido()} {cliente.getNombre()}.")
+                self.vista.mostrar(f"Domicilio: {cliente.getDomicilio()}")
+                self.vista.mostrar(f"Teléfono: {cliente.getTelefono()}")
+                self.vista.mostrar(f"Email: {cliente.getEmail()}")
+                self.vista.mostrar(f"{'-':-^46}")
                 return True
-        self.vista.clienteNoEncontrado()
         self.vistaEvento.limpiar_pantalla()
-        self.vistaEvento.tiempo_espera()
+        self.vista.clienteNoEncontrado()
+        self.vista.dato_incorrecto()
         return False
     
     def modificarCliente(self):
