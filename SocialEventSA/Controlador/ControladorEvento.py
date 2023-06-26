@@ -154,6 +154,7 @@ class ControladorEvento:
                     self.vista.valorIncorrecto()
             
             if opcion == 1:
+                var2=0
                 controladorFecha = ControladorFecha(self.archivoFecha)
                 controladorFecha.ingresarDia()
                 controladorFecha.ingresarMes()
@@ -163,6 +164,10 @@ class ControladorEvento:
                 for element in self.listaEventos:
                     if element.getFecha() == fecha:
                         self.vista.mostrar(element)
+                        var2=1
+                if var2==0:
+                    self.vista.No_hay_evento()
+
             elif opcion == 2:
                 clienteBuscado = ''
                 encontrado = False
@@ -223,7 +228,7 @@ class ControladorEvento:
         opcion = 0
         opcionEventos = 0
         opcionClientes = 0
-        while opcion != 4:
+        while opcion != 3:
             self.vista.tiempo_espera()
             var1=1
             while var1<2:
@@ -233,11 +238,11 @@ class ControladorEvento:
                 except ValueError:
                     self.vista.valorIncorrecto()
             
-            while opcion < 1 or opcion > 4:
+            while opcion < 1 or opcion > 3:
                 opcion = self.vista.menuPrincipal()
             if opcion == 1:
                 self.cargarArchivo()
-                while opcionEventos != 4:
+                while opcionEventos != 3:
                     var1=1
                     while var1<2:
                         try:
@@ -246,7 +251,7 @@ class ControladorEvento:
                         except ValueError:
                             self.vista.valorIncorrecto()
                     
-                    while opcionEventos < 1 or opcionEventos > 4:
+                    while opcionEventos < 1 or opcionEventos > 3:
                         opcionEventos = self.vista.menuEventos()
                     if opcionEventos == 1:
                         self.ingresarCliente()
@@ -263,7 +268,7 @@ class ControladorEvento:
                 self.vista.tiempo_espera()
                 controladorCliente = ControladorCliente(self.archivoClientes)
                 controladorCliente.cargarArchivo()
-                while opcionClientes != 4:
+                while opcionClientes != 3:
                     var1=1
                     while var1<2:
                         try:
@@ -272,7 +277,7 @@ class ControladorEvento:
                         except ValueError:
                             self.vista.valorIncorrecto()
                     
-                    while opcionClientes < 1 or opcionClientes > 4:
+                    while opcionClientes < 1 or opcionClientes > 3:
                         opcionClientes = controladorCliente.vista.menuClientes()
                     if opcionClientes == 1:
                         self.vista.tiempo_espera()

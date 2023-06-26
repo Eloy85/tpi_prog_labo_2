@@ -114,3 +114,6 @@ class VistaEvento:
         os.system("cls")
     def valorIncorrecto(self):
         print("¡Error!: Valor ingresado incorrecto.")
+
+    def No_hay_evento(self):
+        print("No hay evento cargado que coincida con su parametro de busqueda")
