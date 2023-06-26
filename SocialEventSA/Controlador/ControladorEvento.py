@@ -295,10 +295,8 @@ class ControladorEvento:
                         self.vista.tiempo_espera()
                     elif opcionClientes == 3:
                         self.vista.tiempo_espera()
-                        controladorCliente.modificarCliente()
-            
+                        controladorCliente.modificarCliente()     
             elif opcion == 3:
-<<<<<<< HEAD
                 self.vista.tiempo_espera()
                 opcionCostos = 0
                 while opcionCostos != 4:
@@ -309,7 +307,6 @@ class ControladorEvento:
                             var1=3  
                         except ValueError:
                             self.vista.valorIncorrecto()
-                    
                     while opcionCostos < 1 or opcionCostos > 4:
                         self.vista.limpiar_pantalla()
                         self.vista.dato_incorrecto()
@@ -320,7 +317,5 @@ class ControladorEvento:
                         if opcionAdmin.upper() == "S":
                             self.detalleEvento.setCostoAdministrativo(self.vista.nuevoPrecio())
             elif opcion == 4:
-=======
->>>>>>> 757100f950091c9562497a3940e800d11dc625fe
                 self.vista.cerrando_programa()
                 self.vista.limpiar_pantalla()
